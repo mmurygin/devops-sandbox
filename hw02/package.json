@@ -1,0 +1,25 @@
+{
+  "name": "hw02",
+  "version": "1.0.0",
+  "description": "the repo to test travis CI",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/muryginm/otus-devops.git"
+  },
+  "author": "Maxim Murygin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/muryginm/otus-devops/issues"
+  },
+  "homepage": "https://github.com/muryginm/otus-devops#readme",
+  "devDependencies": {
+    "mocha": "^6.1.1"
+  }
+}
