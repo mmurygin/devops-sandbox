@@ -1,0 +1,27 @@
+- name: Remove bastion instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - gce_vars/auth
+    - gce_vars/machine
+    - gce_vars/zone
+
+  tasks:
+    - name: remove a instance
+      gcp_compute_instance:
+        name: "{{ vm_name }}"
+        zone: "{{ zone }}"
+        project: "{{ gcp_project }}"
+        auth_kind: "{{ gcp_auth_kind }}"
+        service_account_file: "{{ gcp_cred_file }}"
+        state: absent
+
+    - name: remove an address
+      gcp_compute_address:
+        name: "{{ vm_address }}"
+        region: "{{ region }}"
+        project: "{{ gcp_project }}"
+        auth_kind: "{{ gcp_auth_kind }}"
+        service_account_file: "{{ gcp_cred_file }}"
+        state: absent

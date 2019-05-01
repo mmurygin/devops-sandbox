@@ -1,4 +1,4 @@
-- name: Create an instance
+- name: Create a bastion instance
   hosts: localhost
   connection: local
   gather_facts: False
