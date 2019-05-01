@@ -34,7 +34,7 @@
         state: present
       register: address
 
-    - name: create a instance
+    - name: create an instance
       gcp_compute_instance:
         state: present
         name: "{{ vm_name }}"
@@ -54,6 +54,10 @@
         service_account_file: "{{ gcp_cred_file }}"
         scopes:
           - https://www.googleapis.com/auth/compute
+        tags:
+          items:
+            - http
+            - https
       register: instance
 
   post_tasks:
