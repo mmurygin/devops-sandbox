@@ -1,3 +1,4 @@
 # Exercises for DevOps course
 
-- [HW2: TravisCI and ChatOps](hw02)
+- [HW02: TravisCI and ChatOps](hw02)
+- [HW03: Bastion Host](hw03)
