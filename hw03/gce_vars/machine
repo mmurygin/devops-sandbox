@@ -1,0 +1,7 @@
+---
+vm_address: bastion-addr
+vm_name: bastion
+vm_disk: bastion-disk
+vm_type: n1-standard-1
+vm_image: https://www.googleapis.com/compute/v1/projects/rhel-cloud/global/images/rhel-7-v20190423
+...

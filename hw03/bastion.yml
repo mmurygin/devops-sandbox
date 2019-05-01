@@ -1,0 +1,64 @@
+- name: Create an instance
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - gce_vars/auth
+    - gce_vars/machine
+    - gce_vars/zone
+
+  tasks:
+    - name: create a disk
+      gcp_compute_disk:
+        name: "{{ vm_disk }}"
+        size_gb: 10
+        source_image: "{{ vm_image }}"
+        zone: "{{ zone }}"
+        project: "{{ gcp_project }}"
+        auth_kind: "{{ gcp_auth_kind }}"
+        service_account_file: "{{ gcp_cred_file }}"
+        scopes:
+          - https://www.googleapis.com/auth/compute
+        state: present
+      register: disk
+
+    - name: create an address
+      gcp_compute_address:
+        name: "{{ vm_address }}"
+        region: "{{ region }}"
+        project: "{{ gcp_project }}"
+        auth_kind: "{{ gcp_auth_kind }}"
+        service_account_file: "{{ gcp_cred_file }}"
+        scopes:
+          - https://www.googleapis.com/auth/compute
+        state: present
+      register: address
+
+    - name: create a instance
+      gcp_compute_instance:
+        state: present
+        name: "{{ vm_name }}"
+        machine_type: "{{ vm_type }}"
+        disks:
+          - auto_delete: true
+            boot: true
+            source: "{{ disk }}"
+        network_interfaces:
+          - access_configs:
+              - name: 'External NAT'
+                nat_ip: "{{ address }}"
+                type: 'ONE_TO_ONE_NAT'
+        zone: "{{ zone }}"
+        project: "{{ gcp_project }}"
+        auth_kind: "{{ gcp_auth_kind }}"
+        service_account_file: "{{ gcp_cred_file }}"
+        scopes:
+          - https://www.googleapis.com/auth/compute
+      register: instance
+
+  post_tasks:
+    - name: Wait for SSH to come up
+      wait_for: host={{ address.address }} port=22 delay=10 timeout=60
+
+    - name: Add host to groupname
+      add_host: hostname={{ address.address }} groupname=new_instances
