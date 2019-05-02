@@ -25,6 +25,8 @@
     ansible-playbook setup.yml
     ```
 
+1. [Configure vpn server](https://docs.pritunl.com/docs/connecting)
+
 ### Cleanup
 ```bash
 ansible-playbook cleanup.yml
