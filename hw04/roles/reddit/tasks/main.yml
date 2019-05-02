@@ -4,7 +4,7 @@
     name:
       - build-essential
       - git
-      - ruby
+      - ruby-full
       - ruby-bundler
     state: present
 
@@ -13,8 +13,16 @@
     repo: 'https://github.com/express42/reddit.git'
     dest: /opt/reddit
     version: monolith
+  notify: restart reddit
 
 - name: install gems
   bundler:
     chdir: /opt/reddit
     state: present
+  notify: restart reddit
+
+- name: copy reddit service unit file
+  copy:
+    src: files/reddit.service
+    dest: /etc/systemd/system/reddit.service
+  notify: restart reddit

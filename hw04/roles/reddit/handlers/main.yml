@@ -1,2 +1,7 @@
 ---
-# handlers file for reddit
+- name: restart reddit
+  systemd:
+    name: reddit.service
+    enabled: yes
+    daemon_reload: yes
+    state: restarted

@@ -1,0 +1,10 @@
+[Unit]
+Description = reddit server
+Requires=network.target
+
+[Service]
+ExecStart=/usr/local/bin/puma --dir /opt/reddit -p 80
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
