@@ -3,6 +3,7 @@
   gather_facts: False
   become: True
   roles:
+    - rhel-base
     - epel
     - mongodb
     - pritunl

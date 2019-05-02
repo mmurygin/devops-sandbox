@@ -19,3 +19,19 @@
     name: pritunl
     state: present
   notify: restart pritunl
+
+- name: enable http service
+  firewalld:
+    state: enabled
+    zone: public
+    service: http
+    immediate: yes
+    permanent: yes
+
+- name: enable https service
+  firewalld:
+    state: enabled
+    zone: public
+    service: https
+    immediate: yes
+    permanent: yes

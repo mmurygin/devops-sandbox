@@ -1,0 +1,17 @@
+---
+- name: move eth0 to public zone
+  firewalld:
+    state: enabled
+    zone: public
+    immediate: yes
+    permanent: yes
+    interface: eth0
+
+- name: remove dhcpv6-client
+  firewalld:
+    state: disabled
+    zone: public
+    immediate: yes
+    permanent: yes
+    service: dhcpv6-client
+
