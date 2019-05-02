@@ -1,0 +1,6 @@
+- name: check connection
+  hosts: gce_bastion
+  gather_facts: False
+  become: True
+  roles:
+    - mongodb
