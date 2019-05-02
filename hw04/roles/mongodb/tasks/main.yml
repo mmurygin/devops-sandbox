@@ -1,11 +1,22 @@
 ---
+- name: install apt-transport-https
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: install mongo repo key
+  apt_key:
+    keyserver: hkp://keyserver.ubuntu.com:80
+    id: 9DA31620334BD75D9DCB49F368818C72E52529D4
+
 - name: add mongo repo
   copy:
-    src: files/mongo.repo
-    dest: /etc/yum.repos.d/mongo.repo
+    src: files/mongodb.list
+    dest: /etc/apt/sources.list.d/mongodb.list
 
 - name: install mongodb package
-  yum:
+  apt:
     name: mongodb-org
     state: present
+    update_cache: yes
   notify: restart mongodb

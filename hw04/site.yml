@@ -3,5 +3,5 @@
   gather_facts: False
   become: True
   roles:
-    - rhel-base
     - mongodb
+    - reddit

@@ -3,5 +3,5 @@ vm_address: reddit-app-addr
 vm_name: reddit-app
 vm_disk: reddit-app-disk
 vm_type: n1-standard-1
-vm_image: https://www.googleapis.com/compute/v1/projects/rhel-cloud/global/images/rhel-7-v20190423
+vm_image: https://www.googleapis.com/compute/v1/projects/ubuntu-os-cloud/global/images/ubuntu-minimal-1604-xenial-v20190408
 ...

@@ -1,2 +1,20 @@
 ---
-# tasks file for reddit
+- name: setup dependent yum packages
+  apt:
+    name:
+      - build-essential
+      - git
+      - ruby
+      - ruby-bundler
+    state: present
+
+- name: clone reddit app
+  git:
+    repo: 'https://github.com/express42/reddit.git'
+    dest: /opt/reddit
+    version: monolith
+
+- name: install gems
+  bundler:
+    chdir: /opt/reddit
+    state: present
