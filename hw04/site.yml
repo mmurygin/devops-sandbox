@@ -1,5 +1,5 @@
-- name: deploy ruby app to vm
-  hosts: gce_vm
+- name: deploy reddit app with all dependencies
+  hosts: gce_vms
   gather_facts: False
   become: True
   roles:
