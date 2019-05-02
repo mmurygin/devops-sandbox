@@ -29,7 +29,7 @@
 
 ### Cleanup
 ```bash
-ansible-playbook cleanup.yml
+ansible-playbook gce-cleanup.yml
 ```
 
 ## How-to
