@@ -1,0 +1,7 @@
+---
+vm_address: ruby-app-addr
+vm_name: ruby-app
+vm_disk: ruby-app-disk
+vm_type: n1-standard-1
+vm_image: https://www.googleapis.com/compute/v1/projects/rhel-cloud/global/images/rhel-7-v20190423
+...

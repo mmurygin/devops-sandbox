@@ -1,0 +1,7 @@
+- name: deploy ruby app to vm
+  hosts: gce_vm
+  gather_facts: False
+  become: True
+  roles:
+    - rhel-base
+    - mongodb
