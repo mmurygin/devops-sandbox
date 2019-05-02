@@ -1,6 +1,8 @@
-- name: check connection
+- name: setup bastion host
   hosts: gce_bastion
   gather_facts: False
   become: True
   roles:
+    - epel
     - mongodb
+    - pritunl

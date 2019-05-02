@@ -2,30 +2,33 @@
 
 ## Getting Started
 ### Before
-1. [Install Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-ubuntu)
-1. [Install gcloud](https://cloud.google.com/sdk/install)
+1. Install requirements
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+1. Setup google auth vars
+    ```bash
+    tee gce_vars/auth << EOF
+    ---
+    gcp_project: you-project-id
+    gcp_cred_file: path-to-service-account-credentials file
+    gcp_auth_kind: serviceaccount
+    ...
+    EOF
+    ```
 1. [Add your ssh key to google cloud compute metadata](https://cloud.google.com/compute/docs/instances/adding-removing-ssh-keys)
-1. Authenticate with gcloud
+
+### Setup bastion host
+1. Setup vm with vpn server
     ```bash
-    gcloud auth login
+    ansible-playbook setup.yml
     ```
-
-1. Set gcloud project
-    ```bash
-    gcloud config set project your-project-id
-    ```
-
-### Create virtual machine
-
-
-### Setup bastion host with firewall and vpn server
-
 
 ### Cleanup
-    ```bash
-    ./cleanup.sh
-    ```
-
+```bash
+ansible-playbook cleanup.yml
+```
 
 ## How-to
 ### Setup ssh tunnel

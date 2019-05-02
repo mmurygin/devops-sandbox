@@ -1,2 +1,21 @@
 ---
-# tasks file for pritunl
+- name: add pritunl repo
+  copy:
+    src: files/pritunl.repo
+    dest: /etc/yum.repos.d/pritunl.repo
+
+- name: import pritunl gpgkey
+  shell: >
+    gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys 7568D9BB55FF9E5287D586017AE645C0CF8E292A &&
+    gpg --armor --export 7568D9BB55FF9E5287D586017AE645C0CF8E292A > /tmp/key.tmp &&
+    rpm --import /tmp/key.tmp &&
+    rm -f /tmp/key.tmp &&
+    touch /var/local/pritunl-key-imported
+  args:
+    creates: /var/local/pritunl-key-imported
+
+- name: install pritunl
+  yum:
+    name: pritunl
+    state: present
+  notify: restart pritunl
