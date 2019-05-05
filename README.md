@@ -4,3 +4,4 @@
 - [HW03: Bastion Host](hw03)
 - [HW04: Deploy ruby app on GCE](hw04)
 - [HW05: Packer](hw05)
+- [HW05: Terraform](hw06)
