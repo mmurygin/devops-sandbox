@@ -1,0 +1,36 @@
+{
+    "variables": {
+        "gcp_project": ""
+    },
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `gcp_project` }}",
+            "image_name": "reddit-full-{{timestamp}}",
+            "image_family": "reddit-full",
+            "source_image_family": "reddit-base",
+            "zone": "europe-west3-c",
+            "ssh_username": "appuser",
+            "machine_type": "f1-micro"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "reddit.service",
+            "destination": "/tmp/reddit.service"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo cp /tmp/reddit.service /etc/systemd/system/reddit.service",
+                "rm /tmp/reddit.service"
+            ]
+        },
+        {
+            "type": "shell",
+            "script": "scripts/build.sh",
+            "execute_command": "sudo {{.Path}}"
+        }
+    ]
+}
