@@ -7,6 +7,7 @@ ExecStart=/usr/local/bin/puma --dir /opt/reddit -p 8080
 Restart=always
 User=reddit
 Group=reddit
+EnvironmentFile=/etc/default/reddit
 
 [Install]
 WantedBy=multi-user.target

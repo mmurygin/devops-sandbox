@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 declare -r APP_DIR=/opt/reddit
 
 echo "Updating packages..."
@@ -27,7 +29,3 @@ sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8080
 sudo iptables -t nat -I OUTPUT -p tcp -d 127.0.0.1 --dport 80 -j REDIRECT --to-ports 8080
 sudo iptables-save | sudo tee /etc/iptables/rules.v4
 
-echo "Enable and start reddit service"
-sudo cp /tmp/reddit.service /etc/systemd/system/reddit.service
-sudo rm /tmp/reddit.service
-sudo systemctl enable --now reddit.service
