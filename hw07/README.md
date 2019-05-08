@@ -5,14 +5,22 @@
 1. [Build base vm image](../hw05)
 1. Create ssh key-pair
 
+## Generate graph
+```bash
+terraform graph -no-color | grep -v -e 'meta.count-boundary' -e 'provider.google' | dot -Tsvg > graph.svg
+```
+
 ## Deploy app with terraform
 1. Create variables file
     ```bash
-    tee terraform.tfvars << EOF
-    project = "your-project-id"
-    public_key_path = "path-to-public-ssh-key"
-    EOF
+    cp terraform.tfvars.example terraform.tfvars
+    vim terraform.tfvars
     ```
+1. Import default ssh rule (optional)
+    ```bash
+    terraform import google_compute_firewall.firewall_ssh default-allow-ssh
+    ```
+
 1. Setup app
     ```bash
     terraform apply

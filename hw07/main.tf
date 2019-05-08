@@ -12,7 +12,7 @@ resource "google_compute_instance" "app" {
   tags = ["reddit-app"]
 
   metadata {
-    ssh-keys = "appuser:${file(var.public_key_path)}"
+    ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
   }
 
   boot_disk {
@@ -28,9 +28,9 @@ resource "google_compute_instance" "app" {
 
   connection {
     type        = "ssh"
-    user        = "appuser"
+    user        = "${var.ssh_user}"
     agent       = false
-    private_key = "${file("~/.ssh/appuser")}"
+    private_key = "${file(var.private_key_path)}"
   }
 
   provisioner "file" {
@@ -41,6 +41,22 @@ resource "google_compute_instance" "app" {
   provisioner "remote-exec" {
     script = "files/build.sh"
   }
+
+  depends_on = [
+    "google_compute_firewall.firewall_ssh"
+  ]
+}
+
+resource "google_compute_firewall" "firewall_ssh" {
+  name    = "default-allow-ssh"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_compute_firewall" "default" {
