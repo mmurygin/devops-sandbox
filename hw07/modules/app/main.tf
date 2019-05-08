@@ -1,21 +1,21 @@
 resource "google_compute_address" "app_ip" {
-  name = "reddit-app-ip"
+  name = "reddit-app-ip-${var.env}"
 }
 
 data "template_file" "reddit_env" {
   template = "${file("reddit/reddit.env")}"
 
   vars = {
-    database_url = "${google_compute_instance.db.network_interface.0.address}"
+    database_url = "${var.db_ip}"
   }
 }
 
 resource "google_compute_instance" "app" {
-  name         = "reddit-app"
+  name         = "reddit-app-${var.env}"
   machine_type = "g1-small"
   zone         = "${var.zone}"
 
-  tags = ["reddit-app"]
+  tags = ["reddit-app-${var.env}"]
 
   metadata {
     ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
@@ -53,14 +53,10 @@ resource "google_compute_instance" "app" {
       "sudo systemctl enable --now reddit",
     ]
   }
-
-  depends_on = [
-    "google_compute_firewall.firewall_ssh",
-  ]
 }
 
 resource "google_compute_firewall" "default" {
-  name    = "allow-reddit-app"
+  name    = "allow-reddit-app-${var.env}"
   network = "default"
 
   allow {
@@ -70,5 +66,5 @@ resource "google_compute_firewall" "default" {
 
   source_ranges = ["0.0.0.0/0"]
 
-  target_tags = ["reddit-app"]
+  target_tags = ["reddit-app-${var.env}"]
 }

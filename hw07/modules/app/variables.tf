@@ -1,19 +1,10 @@
-variable project {
-  description = "Project ID"
-}
-
-variable region {
-  description = "Region"
-  default     = "europe-west3"
+variable env {
+  description = "environment to build"
 }
 
 variable zone {
   description = "Zone"
   default     = "europe-west3-c"
-}
-
-variable env {
-  description = "environment to build"
 }
 
 variable public_key_path {
@@ -26,4 +17,8 @@ variable private_key_path {
 
 variable ssh_user {
   description = "SSH user to connect to vm"
+}
+
+variable db_ip {
+  description = "the ip of mongo database"
 }
