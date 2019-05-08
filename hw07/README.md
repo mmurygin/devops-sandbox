@@ -2,6 +2,7 @@
 
 ## Before
 1. `gcloud auth application-default login`
+1. `terraform init`
 1. Build database image
     ```bash
     packer build -var gcp_project=project-id mongo/packer.json

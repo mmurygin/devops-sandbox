@@ -8,6 +8,14 @@ resource "google_compute_address" "app_ip" {
   name = "reddit-app-ip"
 }
 
+
+data "template_file" "reddit_env" {
+  template = "${file("reddit/reddit.env")}"
+  vars = {
+    database_url = "${google_compute_instance.db.network_interface.0.address}"
+  }
+}
+
 resource "google_compute_instance" "app" {
   name         = "reddit-app"
   machine_type = "g1-small"
@@ -21,7 +29,7 @@ resource "google_compute_instance" "app" {
 
   boot_disk {
     initialize_params {
-      image = "reddit-base"
+      image = "reddit"
     }
   }
 
@@ -41,17 +49,42 @@ resource "google_compute_instance" "app" {
   }
 
   provisioner "file" {
-    source      = "files/reddit.service"
-    destination = "/tmp/reddit.service"
+    content      = "${data.template_file.reddit_env.rendered}"
+    destination = "/tmp/reddit.env"
   }
 
   provisioner "remote-exec" {
-    script = "files/build.sh"
+    inline = [
+      "sudo cp /tmp/reddit.env /etc/default/reddit",
+      "sudo systemctl enable --now reddit",
+    ]
   }
 
   depends_on = [
     "google_compute_firewall.firewall_ssh",
   ]
+}
+
+resource "google_compute_instance" "db" {
+  name         = "reddit-db"
+  machine_type = "g1-small"
+  zone         = "${var.zone}"
+
+  metadata {
+    ssh-keys = "${var.ssh_user}:${file(var.public_key_path)}"
+  }
+
+  boot_disk {
+    initialize_params {
+      image = "mongodb"
+    }
+  }
+
+  network_interface {
+    network = "default"
+
+    access_config = { }
+  }
 }
 
 resource "google_compute_firewall" "firewall_ssh" {

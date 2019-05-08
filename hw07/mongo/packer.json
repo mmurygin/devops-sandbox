@@ -19,6 +19,18 @@
             "type": "shell",
             "script": "./mongo/install_mongo.sh",
             "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "file",
+            "source": "./mongo/mongod.conf",
+            "destination": "/tmp/mongod.conf"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo mv /tmp/mongod.conf /etc/mongod.conf",
+                "sudo systemctl enable --now mongod"
+            ]
         }
     ]
 }
