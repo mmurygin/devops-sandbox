@@ -2,8 +2,10 @@
 
 ## Before
 1. `gcloud auth application-default login`
-1. [Build base vm image](../hw05)
-1. Create ssh key-pair
+1. Build database image
+    ```bash
+    packer build -var gcp_project=project-id mongo/packer.json
+    ```
 
 ## Generate graph
 ```bash
