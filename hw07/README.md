@@ -15,23 +15,23 @@
     packer build -var gcp_project=project-id -var ssh_user=your-user reddit/packer.json
     ```
 
-## Generate graph
-
-## Deploy app with terraform
-1. View resources graph
+1. Create storage bucket for storing terraform state
     ```bash
-    terraform graph -no-color | grep -v -e 'meta.count-boundary' -e 'provider.google' | dot -Tsvg > graph.svg
+    gsutil mb gs://your-state-bucket-name
     ```
 
+1. Init terraform
+    ```bash
+    terraform init \
+        -backend-config="bucket=your-state-bucket-name"
+        -backend-config="prefix=env-name"
+    ```
+
+## Deploy app with terraform
 1. Create variables file
     ```bash
     cp terraform.tfvars.example terraform.tfvars
     vim terraform.tfvars
-    ```
-
-1. Import default ssh rule (optional)
-    ```bash
-    terraform import google_compute_firewall.firewall_ssh default-allow-ssh
     ```
 
 1. Setup app
@@ -42,4 +42,10 @@
 ## Cleanup
     ```bash
     terraform destroy -force
+    ```
+
+## Generate graph
+1. View resources graph
+    ```bash
+    terraform graph -no-color | grep -v -e 'meta.count-boundary' -e 'provider.google' | dot -Tsvg > graph.svg
     ```
