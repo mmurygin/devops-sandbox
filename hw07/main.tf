@@ -18,3 +18,9 @@ module "db" {
   source = "./modules/db"
   env = "${var.env}"
 }
+
+module "vpc" {
+  source = "./modules/vpc"
+  source_ranges="0.0.0.0/0"
+  rule_name="tf-allow-all-ssh"
+}

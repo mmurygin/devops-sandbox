@@ -1,5 +1,5 @@
 resource "google_compute_firewall" "firewall_ssh" {
-  name    = "default-allow-ssh"
+  name    = "${var.rule_name}"
   network = "default"
 
   allow {
@@ -7,5 +7,5 @@ resource "google_compute_firewall" "firewall_ssh" {
     ports    = ["22"]
   }
 
-  source_ranges = ["0.0.0.0/0"]
+  source_ranges = ["${var.source_ranges}"]
 }

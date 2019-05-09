@@ -10,7 +10,7 @@
             "image_family": "reddit-full",
             "source_image_family": "reddit-base",
             "zone": "europe-west3-c",
-            "ssh_username": "appuser",
+            "ssh_user": "appuser",
             "machine_type": "f1-micro"
         }
     ],

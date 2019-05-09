@@ -10,7 +10,7 @@
             "image_family": "reddit",
             "source_image_family": "ubuntu-1604-lts",
             "zone": "europe-west3-c",
-            "ssh_username": "{{ user `ssh_username` }}",
+            "ssh_username": "{{ user `ssh_user` }}",
             "machine_type": "f1-micro"
         }
     ],
