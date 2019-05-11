@@ -1,6 +1,6 @@
 [app]
-appserver ansible_host=35.246.162.242 ansible_python_interpreter=/usr/bin/python2
+appserver ansible_host=35.246.215.59
 
 [db]
-dbserver ansible_host=35.198.76.127 ansible_python_interpreter=/usr/bin/python2
+dbserver ansible_host=35.246.201.69
 

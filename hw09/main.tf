@@ -12,11 +12,13 @@ module "app" {
   zone             = "${var.zone}"
   env              = "${var.env}"
   db_ip            = "${module.db.db_internal_ip}"
+  disk_image       = "rhel-7-v20190423"
 }
 
 module "db" {
-  source = "./modules/db"
-  env    = "${var.env}"
+  source     = "./modules/db"
+  env        = "${var.env}"
+  disk_image = "rhel-7-v20190423"
 }
 
 module "vpc" {

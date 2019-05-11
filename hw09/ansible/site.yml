@@ -6,4 +6,4 @@
   roles:
     - rhel-base
     - name: mongodb
-      listen_ip: 0.0.0.0
+      listen_ip: "{{ ansible_all_ipv4_addresses.0 }}"

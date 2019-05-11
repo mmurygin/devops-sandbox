@@ -25,5 +25,5 @@ variable db_ip {
 
 variable disk_image {
   description = "Disk image"
-  default = "reddit"
+  default     = "reddit"
 }
