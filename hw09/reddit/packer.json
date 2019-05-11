@@ -1,0 +1,41 @@
+{
+    "variables": {
+        "gcp_project": ""
+    },
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `gcp_project` }}",
+            "image_name": "reddit-{{timestamp}}",
+            "image_family": "reddit",
+            "source_image_family": "ubuntu-1604-lts",
+            "zone": "europe-west3-c",
+            "ssh_username": "{{ user `ssh_user` }}",
+            "machine_type": "f1-micro"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "script": "reddit/install_ruby.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "shell",
+            "script": "reddit/build.sh",
+            "execute_command": "sudo {{.Path}}"
+        },
+        {
+            "type": "file",
+            "source": "reddit/reddit.service",
+            "destination": "/tmp/reddit.service"
+        },
+        {
+            "type": "shell",
+            "inline": [
+                "sudo cp /tmp/reddit.service /etc/systemd/system/reddit.service",
+                "rm /tmp/reddit.service"
+            ]
+        }
+    ]
+}

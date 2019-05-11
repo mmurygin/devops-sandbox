@@ -1,0 +1,17 @@
+---
+- name: add mongo repo
+  copy:
+    src: files/mongo.repo
+    dest: /etc/yum.repos.d/mongo.repo
+
+- name: install mongodb package
+  yum:
+    name: mongodb-org
+    state: present
+  notify: restart mongodb
+
+- name: copy config file
+  template:
+    src: templates/mongod.conf
+    dest: /etc/mongod.conf
+  notify: restart mongodb
