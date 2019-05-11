@@ -7,4 +7,5 @@
     - rhel-base
     - name: ruby
       version: 2.6.3
+    - reddit
 ...

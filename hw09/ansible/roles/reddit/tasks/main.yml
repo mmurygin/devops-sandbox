@@ -1,2 +1,27 @@
 ---
-# tasks file for reddit
+- name: install required packages
+  yum:
+    name:
+      - git
+
+- name: create user to run app
+  user:
+    name: reddit
+    create_home: no
+    system: yes
+    state: present
+
+- name: download app source code
+  git:
+    repo: https://github.com/express42/reddit
+    dest: /opt/reddit
+    bare: yes
+    version: monolith
+
+- name: set persmissions for the app dir
+  file:
+    path: /opt/reddit
+    recurse: yes
+    group: reddit
+    mode: 644
+    owner: reddit
