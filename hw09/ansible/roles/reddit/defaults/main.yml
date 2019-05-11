@@ -1,2 +1,4 @@
 ---
-# defaults file for reddit
+app_dir: /opt/reddit
+app_user: reddit
+...
