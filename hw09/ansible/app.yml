@@ -1,0 +1,10 @@
+---
+- name: setup app
+  hosts: app
+  become: True
+  gather_facts: False
+  roles:
+    - rhel-base
+    - name: ruby
+      version: 2.6.3
+...

@@ -1,0 +1,5 @@
+---
+- name: install ruby package
+  yum:
+    name: https://github.com/feedforce/ruby-rpm/releases/download/{{ version }}/ruby-{{ version }}-1.el7.centos.x86_64.rpm
+    state: present

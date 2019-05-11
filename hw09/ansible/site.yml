@@ -1,9 +1,4 @@
 ---
-- name: setup database
-  hosts: db
-  become: True
-  gather_facts: True
-  roles:
-    - rhel-base
-    - name: mongodb
-      listen_ip: "{{ ansible_all_ipv4_addresses.0 }}"
+- include_playbook: db.yml
+- include_playbook: app.yml
+...

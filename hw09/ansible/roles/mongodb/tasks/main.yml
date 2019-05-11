@@ -15,3 +15,9 @@
     src: templates/mongod.conf
     dest: /etc/mongod.conf
   notify: restart mongodb
+
+- name: open mongodb port
+  firewalld:
+    service: mongodb
+    state: enabled
+    permanent: yes
