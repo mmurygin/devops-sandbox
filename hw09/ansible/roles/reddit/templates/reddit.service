@@ -3,10 +3,10 @@ Description = reddit server
 Requires=network.target
 
 [Service]
-ExecStart=/usr/local/bin/puma --dir /opt/reddit -p 8080
+ExecStart=/usr/local/bin/puma --dir {{ app_dir }} -p 80
 Restart=always
-User=reddit
-Group=reddit
+User={{ app_user }}
+Group={{ app_user }}
 EnvironmentFile=/etc/default/reddit
 
 [Install]

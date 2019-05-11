@@ -3,24 +3,30 @@
   yum:
     name:
       - git
+      - gcc
+    state: present
 
 - name: create user to run app
   user:
     name: "{{ app_user }}"
     system: yes
     state: present
+    create_home: no
 
 - name: download app source code
   git:
     repo: https://github.com/express42/reddit
     dest: "{{ app_dir }}"
-    bare: yes
     version: monolith
 
-- name: set persmissions for the app dir
-  file:
-    path: "{{ app_dir }}"
-    owner: "{{ app_user }}"
-    group: "{{ app_user }}"
-    mode: 644
-    recurse: yes
+- name: install ruby gems
+  bundler:
+    state: present
+    chdir: "{{ app_dir }}"
+  become_user: "{{ app_user }}"
+
+- name: copy service file
+  template:
+    src: templates/reddit.service
+    dest: /etc/systemd/system/reddit.service
+...

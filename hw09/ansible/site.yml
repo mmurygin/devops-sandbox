@@ -1,4 +1,4 @@
 ---
-- include_playbook: db.yml
-- include_playbook: app.yml
+- import_playbook: db.yml
+- import_playbook: app.yml
 ...
