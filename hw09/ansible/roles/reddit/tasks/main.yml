@@ -13,23 +13,6 @@
     state: present
     create_home: no
 
-- name: download app source code
-  git:
-    repo: https://github.com/express42/reddit
-    dest: "{{ app_dir }}"
-    version: monolith
-
-- name: install ruby gems
-  bundler:
-    state: present
-    chdir: "{{ app_dir }}"
-  become_user: "{{ app_user }}"
-
-- name: copy service file
-  template:
-    src: templates/reddit.service
-    dest: /etc/systemd/system/reddit.service
-
 - name: setup port redirect from {{ app_port }} to {{ external_port }}
   firewalld:
     rich_rule: rule family=ipv4 forward-port port={{ app_port }} protocol=tcp to-port={{ external_port }}
@@ -45,4 +28,27 @@
     permanent: yes
     immediate: yes
     state: enabled
+
+- name: download app source code
+  git:
+    repo: https://github.com/express42/reddit
+    dest: "{{ app_dir }}"
+    version: monolith
+
+- name: install ruby gems
+  bundler:
+    state: present
+    chdir: "{{ app_dir }}"
+
+- name: set source code permissions
+  file:
+    path: "{{ app_dir }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    recurse: yes
+
+- name: copy service file
+  template:
+    src: templates/reddit.service
+    dest: /etc/systemd/system/reddit.service
 ...
