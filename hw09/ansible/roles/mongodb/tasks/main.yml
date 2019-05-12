@@ -19,5 +19,7 @@
 - name: open mongodb port
   firewalld:
     service: mongodb
-    state: enabled
+    zone: public
     permanent: yes
+    immediate: yes
+    state: enabled

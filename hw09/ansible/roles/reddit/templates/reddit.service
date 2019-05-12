@@ -3,7 +3,7 @@ Description = reddit server
 Requires=network.target
 
 [Service]
-ExecStart=/usr/local/bin/puma --dir {{ app_dir }} -p {{ app_port }}
+ExecStart=/bin/puma --dir {{ app_dir }} -p {{ app_port }}
 Restart=always
 User={{ app_user }}
 Group={{ app_user }}

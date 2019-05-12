@@ -13,9 +13,9 @@
     state: present
     create_home: no
 
-- name: setup port redirect from {{ app_port }} to {{ external_port }}
+- name: setup port redirect from {{ external_port }} to {{ app_port }}
   firewalld:
-    rich_rule: rule family=ipv4 forward-port port={{ app_port }} protocol=tcp to-port={{ external_port }}
+    rich_rule: rule family=ipv4 forward-port port={{ external_port }} protocol=tcp to-port={{ app_port }}
     zone: public
     permanent: yes
     immediate: yes

@@ -2,9 +2,8 @@
 - name: setup database
   hosts: db
   become: True
-  gather_facts: True
+  gather_facts: False
   roles:
     - rhel-base
-    - name: mongodb
-      listen_ip: "{{ ansible_all_ipv4_addresses.0 }}"
+    - mongodb
 ...

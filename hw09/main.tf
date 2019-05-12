@@ -12,13 +12,13 @@ module "app" {
   zone             = "${var.zone}"
   env              = "${var.env}"
   db_ip            = "${module.db.db_internal_ip}"
-  disk_image       = "centos-7-v20190423"
+  disk_image       = "reddit"
 }
 
 module "db" {
   source     = "./modules/db"
   env        = "${var.env}"
-  disk_image = "centos-7-v20190423"
+  disk_image = "mongodb"
 }
 
 module "vpc" {

@@ -17,7 +17,8 @@
     "provisioners": [
         {
             "type": "ansible",
-            "playbook_file": "./ansible/app.yml"
+            "playbook_file": "./ansible/app.yml",
+            "host_alias": "app"
         }
     ]
 }
