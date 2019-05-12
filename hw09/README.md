@@ -22,9 +22,7 @@
 
 1. Init terraform
     ```bash
-    terraform init \
-        -backend-config="bucket=your-state-bucket-name"
-        -backend-config="prefix=env-name"
+    terraform init -backend-config="bucket=your-state-bucket-name" -backend-config="prefix=env-name"
     ```
 
 ## Deploy app with terraform

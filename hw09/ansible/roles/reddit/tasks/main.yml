@@ -29,4 +29,20 @@
   template:
     src: templates/reddit.service
     dest: /etc/systemd/system/reddit.service
+
+- name: setup port redirect from {{ app_port }} to {{ external_port }}
+  firewalld:
+    rich_rule: rule family=ipv4 forward-port port={{ app_port }} protocol=tcp to-port={{ external_port }}
+    zone: public
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: open external port {{ external_port }}
+  firewalld:
+    port: "{{ external_port }}/tcp"
+    zone: public
+    permanent: yes
+    immediate: yes
+    state: enabled
 ...

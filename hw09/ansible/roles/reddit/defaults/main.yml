@@ -1,4 +1,6 @@
 ---
 app_dir: /opt/reddit
 app_user: reddit
+app_port: 8080
+external_port: 80
 ...
