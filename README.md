@@ -6,3 +6,4 @@
 - [HW05: Packer](hw05)
 - [HW06: Terraform Base](hw06)
 - [HW07: Terraform Advanced](hw07)
+- [HW09: Ansible + Packer + Terraform](hw09)
