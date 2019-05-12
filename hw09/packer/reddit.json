@@ -1,0 +1,23 @@
+{
+    "variables": {
+        "gcp_project": ""
+    },
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `gcp_project` }}",
+            "image_name": "reddit-{{timestamp}}",
+            "image_family": "reddit",
+            "source_image_family": "centos-7",
+            "zone": "europe-west3-c",
+            "ssh_username": "{{ user `ssh_user` }}",
+            "machine_type": "f1-micro"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "./ansible/app.yml"
+        }
+    ]
+}

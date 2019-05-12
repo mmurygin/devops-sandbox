@@ -7,12 +7,12 @@
 
 1. Build database image
     ```bash
-    packer build -var gcp_project=project-id -var ssh_user=your-user mongo/packer.json
+    packer build -var gcp_project=$(gcloud config get-value project) -var ssh_user=$(whoami) packer/mongo.json
     ```
 
 1. Build app image
     ```bash
-    packer build -var gcp_project=project-id -var ssh_user=your-user reddit/packer.json
+    packer build -var gcp_project=$(gcloud config get-value project) -var ssh_user=$(whoami) packer/reddit.json
     ```
 
 1. Create storage bucket for storing terraform state
@@ -32,7 +32,7 @@
     vim terraform.tfvars
     ```
 
-1. Setup app
+1. Deploy app
     ```bash
     terraform apply
     ```
@@ -40,10 +40,4 @@
 ## Cleanup
     ```bash
     terraform destroy -force
-    ```
-
-## Generate graph
-1. View resources graph
-    ```bash
-    terraform graph -no-color | grep -v -e 'meta.count-boundary' -e 'provider.google' | dot -Tsvg > graph.svg
     ```

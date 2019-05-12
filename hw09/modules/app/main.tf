@@ -3,7 +3,7 @@ resource "google_compute_address" "app_ip" {
 }
 
 data "template_file" "reddit_env" {
-  template = "${file("reddit/reddit.env")}"
+  template = "${file("${path.module}/files/reddit.env")}"
 
   vars = {
     database_url = "${var.db_ip}"
@@ -42,17 +42,17 @@ resource "google_compute_instance" "app" {
     private_key = "${file(var.private_key_path)}"
   }
 
-  # provisioner "file" {
-  #   content     = "${data.template_file.reddit_env.rendered}"
-  #   destination = "/tmp/reddit.env"
-  # }
+  provisioner "file" {
+    content     = "${data.template_file.reddit_env.rendered}"
+    destination = "/tmp/reddit.env"
+  }
 
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "sudo cp /tmp/reddit.env /etc/default/reddit",
-  #     "sudo systemctl enable --now reddit",
-  #   ]
-  # }
+  provisioner "remote-exec" {
+    inline = [
+      "sudo cp /tmp/reddit.env /etc/default/reddit",
+      "sudo systemctl enable --now reddit",
+    ]
+  }
 }
 
 resource "google_compute_firewall" "default" {
