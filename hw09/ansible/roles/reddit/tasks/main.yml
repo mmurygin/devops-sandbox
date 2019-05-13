@@ -39,6 +39,7 @@
   bundler:
     state: present
     chdir: "{{ app_dir }}"
+    user_install: no
 
 - name: set source code permissions
   file:

@@ -6,6 +6,6 @@
   roles:
     - rhel-base
     - name: ruby
-      version: 2.6.3
+      version: 2.2.4
     - reddit
 ...
