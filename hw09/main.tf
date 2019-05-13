@@ -12,13 +12,13 @@ module "app" {
   zone             = "${var.zone}"
   env              = "${var.env}"
   db_ip            = "${module.db.db_internal_ip}"
-  disk_image       = "centos-7"
+  disk_image       = "${var.app_vm_image}"
 }
 
 module "db" {
   source     = "./modules/db"
   env        = "${var.env}"
-  disk_image = "centos-7"
+  disk_image = "${var.db_vm_image}"
 }
 
 module "vpc" {

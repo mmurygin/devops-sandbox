@@ -24,6 +24,8 @@
     ```
 
 ## Create infra with terraform, provision with ansible
+1. Create gcloud service account and download credentials file.
+
 1. Setup ansible vars
     ```bash
     cp ansible/inventory.gce.ini.example ansible/inventory.gce.ini
@@ -32,7 +34,7 @@
 
 1. Create infrastructure
     ```bash
-    terraform apply -var app_vm_image="reddit" -var db_vm_image="mongodb"
+    terraform apply
     ```
 
 1. Provision db and app
