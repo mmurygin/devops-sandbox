@@ -1,11 +1,11 @@
 ---
 - name: setup app
-  hosts: app
+  hosts: "{{ gce_hosts }}"
   become: True
   gather_facts: False
   roles:
     - rhel-base
     - name: ruby
-      version: 2.6.3
+      version: 2.5.0
     - reddit
 ...
