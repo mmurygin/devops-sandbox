@@ -34,12 +34,14 @@
     repo: https://github.com/express42/reddit
     dest: "{{ app_dir }}"
     version: monolith
+  notify: restart reddit
 
 - name: install ruby gems
   bundler:
     state: present
     chdir: "{{ app_dir }}"
     user_install: no
+  notify: restart reddit
 
 - name: set source code permissions
   file:
@@ -52,4 +54,5 @@
   template:
     src: templates/reddit.service
     dest: /etc/systemd/system/reddit.service
+  notify: restart reddit
 ...

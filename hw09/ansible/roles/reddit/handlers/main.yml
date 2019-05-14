@@ -1,2 +1,7 @@
 ---
-# handlers file for reddit
+- name: restart reddit
+  systemd:
+    name: reddit
+    state: restarted
+    enabled: yes
+...
