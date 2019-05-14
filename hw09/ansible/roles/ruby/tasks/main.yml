@@ -3,3 +3,10 @@
   yum:
     name: https://github.com/feedforce/ruby-rpm/releases/download/{{ version }}/ruby-{{ version }}-1.el7.centos.x86_64.rpm
     state: present
+
+- name: install bundler
+  gem:
+    name: bundler
+    state: present
+    version: "1.16.1"
+    user_install: no

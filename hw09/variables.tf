@@ -27,3 +27,13 @@ variable private_key_path {
 variable ssh_user {
   description = "SSH user to connect to vm"
 }
+
+variable app_vm_image {
+  description = "The image for app vm"
+  default = "centos-7"
+}
+
+variable db_vm_image {
+  description = "The image for db vm"
+  default = "centos-7"
+}

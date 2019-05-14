@@ -11,7 +11,7 @@ data "template_file" "reddit_env" {
 }
 
 resource "google_compute_instance" "app" {
-  name         = "reddit-app-${var.env}"
+  name         = "reddit-app-${var.env}-1"
   machine_type = "g1-small"
   zone         = "${var.zone}"
 
@@ -49,8 +49,7 @@ resource "google_compute_instance" "app" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo cp /tmp/reddit.env /etc/default/reddit",
-      "sudo systemctl enable --now reddit",
+      "sudo cp /tmp/reddit.env /etc/default/reddit"
     ]
   }
 }
