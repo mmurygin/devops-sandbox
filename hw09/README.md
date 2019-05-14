@@ -26,6 +26,11 @@
 ## Create infra with terraform, provision with ansible
 1. Create gcloud service account and download credentials file.
 
+1. Install ansible requirements
+    ```bash
+    pip install -r ansibke/requirements.txt
+    ```
+
 1. Setup ansible vars
     ```bash
     cp ansible/inventory.gce.ini.example ansible/inventory.gce.ini
