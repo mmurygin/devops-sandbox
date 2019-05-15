@@ -14,7 +14,7 @@
 
 1. Init terraform
     ```bash
-    terraform init -backend-config="bucket=your-state-bucket-name" -backend-config="prefix=env-name"
+    terraform init -backend-config="bucket=your-state-bucket-name" -backend-config="prefix=your-env"
     ```
 
 1. Setup terraform vars
@@ -28,7 +28,7 @@
 
 1. Install ansible requirements
     ```bash
-    pip install -r ansibke/requirements.txt
+    pip install -r ansible/requirements.txt
     ```
 
 1. Setup ansible vars
@@ -39,13 +39,16 @@
 
 1. Create infrastructure
     ```bash
-    terraform apply
+    cd terraform
+    terraform apply -var 'env=your-env'
+    cd ..
     ```
 
 1. Provision db and app
     ```bash
     cd ansible
-    ./provision.sh prod
+    ./provision.sh your-env
+    cd ..
     ```
 
 ## Build vm image with ansible and packer, create infra with terraform
@@ -61,10 +64,13 @@
 
 1. Create infrastructure
     ```bash
-    terraform apply -var app_vm_image="reddit" -var db_vm_image="mongodb"
+    cd terraform
+    terraform apply -var 'env=your-env' -var app_vm_image="reddit" -var db_vm_image="mongodb"
+    cd ..
     ```
 
 ## Cleanup
     ```bash
-    terraform destroy -force
+    cd terraform
+    terraform destroy -var 'env=your-env' -force
     ```

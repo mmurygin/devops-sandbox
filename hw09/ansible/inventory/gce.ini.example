@@ -19,7 +19,7 @@
 gce_service_account_email_address =
 gce_service_account_pem_file_path =
 gce_project_id =
-gce_zone =
+gce_zone = europe-west3-c
 
 [inventory]
 inventory_ip_type ='external'
