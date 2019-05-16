@@ -1,0 +1,14 @@
+- name: open external port http
+  firewalld:
+    service: http
+    zone: public
+    permanent: yes
+    immediate: yes
+    state: enabled
+
+- name: allow network connect
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+

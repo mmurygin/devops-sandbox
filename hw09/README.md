@@ -28,7 +28,10 @@
 
 1. Install ansible requirements
     ```bash
-    pip install -r ansible/requirements.txt
+    cd ansible
+    pip install -r requirements.txt
+    ansible-galaxy install -r requirements.yml
+    cd ..
     ```
 
 1. Setup ansible vars

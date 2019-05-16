@@ -13,22 +13,6 @@
     state: present
     create_home: no
 
-- name: setup port redirect from {{ external_port }} to {{ app_port }}
-  firewalld:
-    rich_rule: rule family=ipv4 forward-port port={{ external_port }} protocol=tcp to-port={{ app_port }}
-    zone: public
-    permanent: yes
-    immediate: yes
-    state: enabled
-
-- name: open external port {{ external_port }}
-  firewalld:
-    port: "{{ external_port }}/tcp"
-    zone: public
-    permanent: yes
-    immediate: yes
-    state: enabled
-
 - name: download app source code
   git:
     repo: https://github.com/express42/reddit

@@ -2,10 +2,16 @@
 - name: setup app
   hosts: "{{ gce_hosts }}"
   become: True
-  gather_facts: False
+  gather_facts: True
   roles:
     - rhel-base
     - name: ruby
       version: 2.2.4
     - reddit
+    - name: jdauphant.nginx
+      nginx_sites:
+        default:
+          - listen 80
+          - location / { proxy_pass http://127.0.0.1:8080; }
+    - webserver-sec
 ...

@@ -1,2 +1,1 @@
-ansible >= 2.7.10
 apache-libcloud >= 0.13
