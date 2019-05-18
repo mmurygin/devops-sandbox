@@ -1,7 +1,0 @@
-*.tfstate
-*.tfstate.*.backup
-*.tfstate.backup
-*.tfvars
-.terraform/
-*.svg
-gce.ini

@@ -2,3 +2,10 @@ node_modules
 auth
 *.retry
 .vagrant
+*.tfstate
+*.tfstate.*.backup
+*.tfstate.backup
+*.tfvars
+.terraform/
+*.svg
+gce.ini
