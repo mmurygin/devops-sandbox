@@ -4,7 +4,7 @@ jobs:
       language: node_js
       node_js:
         - "10"
-      install:
+      before_install:
         - cd hw02
 git:
   depth: false
