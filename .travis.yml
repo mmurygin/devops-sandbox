@@ -1,11 +1,22 @@
 jobs:
   include:
-    - stage: test nodejs app (in hw02)
+    - stage: "hw02: test nodejs app"
       language: node_js
       node_js:
         - "10"
       before_install:
         - cd hw02
+    - stage: "hw09: test infrastructure code"
+      name: validate packer
+      language: generic
+      before_install:
+        - wget https://releases.hashicorp.com/packer/1.4.1/packer_1.4.1_linux_amd64.zip -O /tmp/packer.zip
+        - sudo unzip /tmp/packer.zip -d /usr/local/bin/
+      install:
+        - cd hw09
+      script:
+        - packer validate -var gcp_project=empty -var ssh_user=empty packer/mongo.json
+        - packer validate -var gcp_project=empty -var ssh_user=empty packer/app.json
 git:
   depth: false
 notifications:
