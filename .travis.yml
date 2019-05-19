@@ -11,7 +11,7 @@ jobs:
       language: generic
       before_install:
         - ./scripts/install-ansible.sh
-        - ./scripts/intall-packer.sh
+        - ./scripts/install-packer.sh
       install:
         - cd hw09
       script:
