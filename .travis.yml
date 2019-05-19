@@ -44,8 +44,6 @@ jobs:
         - sudo pip install ansible-lint
       install:
         - cd hw09/ansible
-        - sudo pip install -r requirements.txt
-        - ansible-galaxy install -r requirements.yml
       script:
         - ansible-lint db.yml
         - ansible-lint app.yml
