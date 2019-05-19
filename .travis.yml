@@ -23,6 +23,7 @@ jobs:
         - ./scripts/install-terraform.sh
       install:
         - cd hw09/terraform
+        - terraform init -backend-config="bucket=demo-bucket" -backend-config="prefix=test"
       script:
         - terraform validate
 git:
