@@ -10,17 +10,18 @@ jobs:
       name: validate packer
       language: generic
       before_install:
-        - sudo apt update
-        - sudo apt install software-properties-common
-        - sudo apt-add-repository --yes --update ppa:ansible/ansible
-        - sudo apt install ansible
+        # - sudo apt update
+        # - sudo apt install software-properties-common -y
+        # - sudo apt-add-repository --yes ppa:ansible/ansible
+        # - sudo apt update
+        # - sudo apt install ansible -y
         - wget https://releases.hashicorp.com/packer/1.4.1/packer_1.4.1_linux_amd64.zip -O /tmp/packer.zip
         - sudo unzip -o /tmp/packer.zip -d /usr/local/bin/
       install:
         - cd hw09
       script:
         - packer validate -var gcp_project=empty -var ssh_user=empty packer/mongo.json
-        - packer validate -var gcp_project=empty -var ssh_user=empty packer/app.json
+        - packer validate -var gcp_project=empty -var ssh_user=empty packer/reddit.json
 git:
   depth: false
 notifications:
