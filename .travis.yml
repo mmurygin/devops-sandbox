@@ -27,9 +27,9 @@ jobs:
         - rm backend.tf
         - cp terraform.tfvars.example terraform.tfvars
         - touch /tmp/id_rsa
-        - sed -i -E 's/(private_key_path\s?=\s?)".*"/\1"\/tmp\/id_rsa"/' terraform.tfvars.example
+        - sed -i -E 's/(private_key_path\s?=\s?)".*"/\1"\/tmp\/id_rsa"/' terraform.tfvars
         - touch /tmp/id_rsa.pub
-        - sed -i -E 's/(public_key_path\s?=\s?)".*"/\1"\/tmp\/id_rsa.pub"/' terraform.tfvars.example
+        - sed -i -E 's/(public_key_path\s?=\s?)".*"/\1"\/tmp\/id_rsa.pub"/' terraform.tfvars
         - terraform init
       script:
         - terraform validate
