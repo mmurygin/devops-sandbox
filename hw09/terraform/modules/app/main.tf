@@ -49,7 +49,7 @@ resource "google_compute_instance" "app" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo cp /tmp/reddit.env /etc/default/reddit"
+      "sudo cp /tmp/reddit.env /etc/default/reddit",
     ]
   }
 }

@@ -30,10 +30,10 @@ variable ssh_user {
 
 variable app_vm_image {
   description = "The image for app vm"
-  default = "centos-7"
+  default     = "centos-7"
 }
 
 variable db_vm_image {
   description = "The image for db vm"
-  default = "centos-7"
+  default     = "centos-7"
 }
