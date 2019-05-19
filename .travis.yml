@@ -25,8 +25,10 @@ jobs:
       install:
         - cd hw09/terraform
         - rm backend.tf
-        - terraform init
         - cp terraform.tfvars.example terraform.tfvars
+        - touch $(sed -nE 's/private_key_path\s?=\s?"(.*)"/\1/p' hw09/terraform/terraform.tfvars)
+        - touch $(sed -nE 's/public_key_path\s?=\s?"(.*)"/\1/p' hw09/terraform/terraform.tfvars)
+        - terraform init
       script:
         - terraform validate
         - tflint
