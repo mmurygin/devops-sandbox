@@ -5,8 +5,8 @@
 - [Play Travis](play-travis)
     * tests which are writen in nodejs to play with travisCI and slack integration
 - [Bastion Host with ansible](bastion-host)
-    * Create cloud infrastructure with ansible gcp module
-    * Provision vms with ansible
+    * Create cloud infrastructure with `ansible` `gcp module`
+    * Provision vms with `ansible`
     * Inside bastion host:
         * OS: CentOS 7
         * services:
@@ -14,8 +14,8 @@
             * mongod
             * pritunl
 - [Web App with Ansible](gcp-ansible)
-    * Create cloud infrastructure with ansible gcp module
-    * Provision vms with ansible
+    * Create cloud infrastructure with `ansible` `gcp module`
+    * Provision vms with `ansible`
     * Inside vm:
         * OS: Ubuntu 16.04
         * services:
@@ -23,23 +23,23 @@
             * reddit
 - [Web App with Packer](gcp-packer)
     * Create cloud infrastructure with `gcloud`
-    * Create vm image with packer
+    * Create vm image with `packer`
     * Inside vm:
         * OS: Ubuntu 16.04
         * services:
             * mongod
             * reddit
 - [Web App with Terraform](gcp-terraform)
-    * Create cloud infrastructure with terraform
-    * Provision vm with terraform
+    * Create cloud infrastructure with `terraform`
+    * Provision vm with `terraform`
     * Inside vm:
         * OS: Ubuntu 16.04
         * services:
             * mongod
             * reddit
 - [Web App with Terraform and Packer](terraform-packer)
-    * Create cloud infrastructure with terraform
-    * Create vm image with packer
+    * Create cloud infrastructure with `terraform`
+    * Create vm image with `packer`
     * Inside db vm:
         * OS: Ubuntu 16.04
         * services:
@@ -49,9 +49,9 @@
         * services:
             * reddit
 - [Web App with Terraform and Ansible/Packer](terraform-packer-ansible)
-    * Create cloud infrastructure with terraform
-    * [Create vm image with packer]
-    * Provision vm with ansible
+    * Create cloud infrastructure with `terraform`
+    * [Create vm image with `packer`]
+    * Provision vm with `ansible`
     * Inside db vm:
         * OS: CentOS 7
         * services:
@@ -64,4 +64,4 @@
             * nginx
             * reddit
 - [Ansible Vault Demo](ansible-vault)
-    * Demo role to play with ansible-vault
+    * Demo role to play with `ansible-vault`
