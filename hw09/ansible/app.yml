@@ -4,14 +4,17 @@
   become: True
   gather_facts: True
   roles:
-    - rhel-base
-    - name: ruby
-      version: 2.2.4
-    - reddit
-    - name: jdauphant.nginx
-      nginx_sites:
-        default:
-          - listen 80
-          - location / { proxy_pass http://127.0.0.1:8080; }
-    - webserver-sec
+    - role: rhel-base
+    - role: ruby
+      vars:
+        version: 2.2.4
+    - role: reddit
+    - role: jdauphant.nginx
+      vars:
+        nginx_sites:
+          default:
+            - listen 80
+            - location / { proxy_pass http://127.0.0.1:8080; }
+      tags: ['skip_ansible_lint']
+    - role: webserver-sec
 ...

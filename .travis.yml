@@ -1,13 +1,13 @@
 jobs:
   include:
-    - stage: "hw02: test nodejs app"
+    - name: "hw02: test nodejs app"
       language: node_js
       node_js:
         - "10"
       before_install:
         - cd hw02
-    - stage: "hw09: test infrastructure code"
-      name: validate packer
+
+    - name: "hw09: validate packer"
       language: generic
       before_install:
         - ./scripts/install-ansible.sh
@@ -17,7 +17,8 @@ jobs:
       script:
         - packer validate -var gcp_project=empty -var ssh_user=empty packer/mongo.json
         - packer validate -var gcp_project=empty -var ssh_user=empty packer/reddit.json
-    - name: validate terraform
+
+    - name: "hw09: validate terraform"
       language: generic
       before_install:
         - ./scripts/install-terraform.sh
@@ -25,11 +26,27 @@ jobs:
         - cd hw09/terraform
         - rm backend.tf
         - terraform init
+        - cp terraform.tfvars.example terraform.tfvars
       script:
         - terraform validate
         - tflint
+
+    - name: "hw09: validate ansible playbooks"
+      language: python
+      python:
+        - "2.7"
+      before_install:
+        - ./scripts/install-ansible.sh
+        - sudo pip install ansible-lint
+      install:
+        - cd hw09/ansible
+        - sudo pip install -r requirements.txt
+        - ansible-galaxy install -r requirements.yml
+      script:
+        - ansible-lint db.yml
+        - ansible-lint app.yml
 git:
-  depth: false
+  depth: 1
 notifications:
   slack:
     secure: cYX33MqJj+42DETgwkLgpZut2fr5O6cn+12kW6ie9AS7EZRM1WAj21hVE9999d+C12ZRsAqVa7FTX/T/ujH/mNr/B9cKAdynED/C4kpUcZu5PhYUHTlU8ao2MFl+bEqsHHtKFdRn2bvn5rj2MJEK+Q9LeClEiEIonCKfGJio7eQKnCCB/Vv8e3kHsCu6eaXFpm0ce99CccyTDTY601lhpAaF/mIQMDx/Y2yoY41F1Pjko+OE7M7mh4yvN5BMNRTHkEW0nte/UQhBfTyZzcSRWtF3IgpEf9KO4QDVN1tu/Wj9dy7cIs7bEiWEu4DdzR0GmoF/wtjQqFpFg1XzKXiI0WYLb8cTv9c7mq4t7QO8EmCTi8omLq4+I6OzOplgiiQiuTG82xbcv29WLZ4oPOi/9OCxJfqY7C+l+ICLhJMn0qaOlJU9Xtb03n2lmYZSWMLlxyPD7VIUlvbUXqQhTTB6DUaK6cqymXv+jua8Q9fcA9xKa3QJInzZFMRKxnjg1HXIiMT9uWmWruJ+Xt9vGOTO4/U3wNpAVe8ESSiEBmE6P+RrvkKH7EeOY/1Nf0cqf8OyFe08lyRszQ56s6WpUkj34mpXME8RciXSF5NQXR1PdO0KZYm5Xg9Jozwi9c8nZ+ki4aGk0CvizVYij5z8pz4ICgPAY1h+jjX6G6XOSLh5R4Q=
