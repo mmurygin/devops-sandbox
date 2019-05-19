@@ -1,29 +1,29 @@
 jobs:
   include:
-    - name: "hw02: test nodejs app"
+    - name: "Test nodejs app"
       language: node_js
       node_js:
         - "10"
       before_install:
-        - cd hw02
+        - cd play-travis
 
-    - name: "hw09: validate packer"
+    - name: "Validate packer configs"
       language: generic
       before_install:
         - ./scripts/install-ansible.sh
         - ./scripts/install-packer.sh
       install:
-        - cd hw09
+        - cd terraform-packer-ansible
       script:
         - packer validate -var gcp_project=empty -var ssh_user=empty packer/mongo.json
         - packer validate -var gcp_project=empty -var ssh_user=empty packer/reddit.json
 
-    - name: "hw09: validate terraform"
+    - name: "Validate terraform configs"
       language: generic
       before_install:
         - ./scripts/install-terraform.sh
       install:
-        - cd hw09/terraform
+        - cd terraform-packer-ansible/terraform
         - rm backend.tf
         - cp terraform.tfvars.example terraform.tfvars
         - touch /tmp/id_rsa
@@ -35,7 +35,7 @@ jobs:
         - terraform validate
         - tflint
 
-    - name: "hw09: validate ansible playbooks"
+    - name: "Validate ansible playbooks"
       language: python
       python:
         - "2.7"
@@ -43,7 +43,7 @@ jobs:
         - ./scripts/install-ansible.sh
         - sudo pip install ansible-lint
       install:
-        - cd hw09/ansible
+        - cd terraform-packer-ansible/ansible
       script:
         - ansible-lint db.yml
         - ansible-lint app.yml
