@@ -1,6 +1,6 @@
 ---
 - name: setup database
-  hosts: "{{ gce_hosts }}"
+  hosts: "{{ dynamic_hosts }}"
   become: True
   gather_facts: False
   roles:
