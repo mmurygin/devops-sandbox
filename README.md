@@ -1,6 +1,6 @@
 # DevOps projects sandbox
 
-[![Build Status](https://travis-ci.com/muryginm/otus-devops.svg?token=5mNXAvsiXVJ8aCvqWa9s&branch=master)](https://travis-ci.com/muryginm/otus-devops)
+[![Build Status](https://travis-ci.com/muryginm/devops-sandbox.svg?token=5mNXAvsiXVJ8aCvqWa9s&branch=master)](https://travis-ci.com/muryginm/devops-sandbox)
 
 - [Play Travis](play-travis)
     * tests which are writen in nodejs to play with travisCI and slack integration
