@@ -13,26 +13,31 @@
     state: present
     create_home: no
 
+- name: create directory to run app
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    mode: 0770
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+
 - name: download app source code
   git:
     repo: https://github.com/express42/reddit
     dest: "{{ app_dir }}"
     version: monolith
+  become_user: "{{ app_user }}"
+  tags:
+    - deploy
   notify: restart reddit
 
 - name: install ruby gems
   bundler:
     state: present
     chdir: "{{ app_dir }}"
-    user_install: no
+  tags:
+    - deploy
   notify: restart reddit
-
-- name: set source code permissions
-  file:
-    path: "{{ app_dir }}"
-    owner: "{{ app_user }}"
-    group: "{{ app_user }}"
-    recurse: yes
 
 - name: copy service file
   template:

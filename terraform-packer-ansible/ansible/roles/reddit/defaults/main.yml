@@ -1,5 +1,5 @@
 ---
-app_dir: /opt/reddit
+app_dir: /srv/reddit
 app_user: reddit
 app_port: 8080
 ...
