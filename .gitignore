@@ -1,3 +1,6 @@
+# vim
+*.swp
+
 # nodejs modules
 node_modules
 
