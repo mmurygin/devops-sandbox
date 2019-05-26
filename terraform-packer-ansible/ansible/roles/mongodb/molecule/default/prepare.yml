@@ -1,9 +1,11 @@
 ---
 - name: Prepare
   hosts: all
+  become: True
   gather_facts: false
   tasks:
-    - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
-      become: true
-      changed_when: false
+    - name: enable firewall
+      systemd:
+        name: firewalld
+        enabled: yes
+        state: started
