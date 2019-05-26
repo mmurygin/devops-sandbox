@@ -26,14 +26,12 @@ Vagrant.configure("2") do |config|
     app.vm.hostname = "appserver"
     app.vm.network :private_network, ip: "10.0.10.20"
 
-    app.vm.provision "shell", inline:
-      "echo DATABASE_URL=10.0.10.10:27017 > /etc/default/reddit"
-
     app.vm.provision "ansible" do |ansible|
       ansible.playbook = "app.yml"
 
       ansible.extra_vars = {
-        "dynamic_hosts": "all"
+        "dynamic_hosts": "all",
+        "database_url": "10.0.10.10:27017",
       }
     end
   end

@@ -2,4 +2,5 @@
 app_dir: /srv/reddit
 app_user: reddit
 app_port: 8080
+database_url: 0.0.0.0:27017
 ...

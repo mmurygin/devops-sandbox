@@ -39,9 +39,15 @@
     - deploy
   notify: restart reddit
 
+- name: copy environment file
+  template:
+    src: templates/etc/default/reddit.env
+    dest: /etc/default/reddit.env
+  notify: restart reddit
+
 - name: copy service file
   template:
-    src: templates/reddit.service
+    src: templates/etc/systemd/system/reddit.service
     dest: /etc/systemd/system/reddit.service
   notify: restart reddit
 ...

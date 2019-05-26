@@ -49,7 +49,7 @@ resource "google_compute_instance" "app" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo cp /tmp/reddit.env /etc/default/reddit",
+      "sed -E 's/^(DATABASE_URL=)(.*):(.*)/\1${db_ip}:\3/'",
     ]
   }
 }
