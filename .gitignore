@@ -1,6 +1,12 @@
 # vim
 *.swp
 
+# python
+*.pyc
+.cache
+.pytest_cache
+.venv
+
 # nodejs modules
 node_modules
 
@@ -9,14 +15,11 @@ auth
 
 # ansible retry
 *.retry
+.molecule
 
 # vagrant
 .vagrant
 *.log
-*.pyc
-.molecule
-.cache
-.pytest_cache
 
 # terraform
 *.tfstate

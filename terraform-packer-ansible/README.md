@@ -29,6 +29,8 @@
 1. Install ansible requirements
     ```bash
     cd ansible
+    virtualenv .venv
+    source .venv/bin/activate
     pip install -r requirements.txt
     ansible-galaxy install -r requirements.yml
     cd ..
@@ -70,6 +72,13 @@
     cd terraform
     terraform apply -var 'env=your-env' -var app_vm_image="reddit" -var db_vm_image="mongodb"
     cd ..
+    ```
+
+## Test ansible role
+1. Install virtual box, vagrant
+1. Install vbguest vagrant plugin
+    ```bash
+    vagrant plugin install vagrant-vbguest
     ```
 
 ## Cleanup
