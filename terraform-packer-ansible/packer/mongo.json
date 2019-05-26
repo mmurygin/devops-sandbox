@@ -18,7 +18,9 @@
         {
             "type": "ansible",
             "playbook_file": "./ansible/db.yml",
-            "host_alias": "db"
+            "extra_arguments": [
+                "--extra-vars", "dynamic_hosts=all"
+            ]
         }
     ]
 }

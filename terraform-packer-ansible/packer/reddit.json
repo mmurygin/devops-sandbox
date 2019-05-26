@@ -11,14 +11,16 @@
             "source_image_family": "centos-7",
             "zone": "europe-west3-c",
             "ssh_username": "{{ user `ssh_user` }}",
-            "machine_type": "f1-micro"
+            "machine_type": "n1-standard-1"
         }
     ],
     "provisioners": [
         {
             "type": "ansible",
             "playbook_file": "./ansible/app.yml",
-            "host_alias": "app"
+            "extra_arguments": [
+                "--extra-vars", "dynamic_hosts=all"
+            ]
         }
     ]
 }
