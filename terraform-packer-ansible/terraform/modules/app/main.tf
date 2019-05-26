@@ -49,7 +49,8 @@ resource "google_compute_instance" "app" {
 
   provisioner "remote-exec" {
     inline = [
-      "sed -E 's/^(DATABASE_URL=)(.*):(.*)/\1${db_ip}:\3/'",
+      "sudo sed -iE 's/^(DATABASE_URL=)(.*):(.*)/\1${db_ip}:\3/' /etc/default/reddit.env",
+      "sudo systemctl restart reddist.service"
     ]
   }
 }
