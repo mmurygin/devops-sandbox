@@ -4,6 +4,7 @@
         "**/.svn": true,
         "**/.hg": true,
         "**/.venv": true,
-        "**/.vagrant": true
+        "**/.vagrant": true,
+        "**/.terraform": true
     }
 }

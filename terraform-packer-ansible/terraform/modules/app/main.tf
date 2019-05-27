@@ -6,7 +6,7 @@ data "template_file" "reddit_env" {
   template = "${file("${path.module}/files/reddit.env")}"
 
   vars = {
-    database_url = "${var.db_ip}"
+    database_url = "${var.db_ip}:27017"
   }
 }
 
@@ -49,8 +49,8 @@ resource "google_compute_instance" "app" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo sed -iE 's/^(DATABASE_URL=)(.*):(.*)/\1${db_ip}:\3/' /etc/default/reddit.env",
-      "sudo systemctl restart reddist.service"
+      "sudo cp /tmp/reddit.env /etc/default/reddit.env",
+      "systemctl list-unit-files | grep reddit && sudo systemctl restart reddit || echo nothing to start"
     ]
   }
 }
