@@ -26,6 +26,7 @@
     repo: https://github.com/express42/reddit
     dest: "{{ app_dir }}"
     version: monolith
+  become: yes
   become_user: "{{ app_user }}"
   tags:
     - deploy
