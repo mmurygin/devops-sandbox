@@ -7,6 +7,8 @@
 
 1. `gcloud auth application-default login`
 
+
+## Setup terraform
 1. Create storage bucket for storing terraform state
     ```bash
     gsutil mb gs://your-state-bucket-name
@@ -23,7 +25,7 @@
     vim terraform.tfvars
     ```
 
-## Create infra with terraform, provision with ansible
+## Setup Ansible
 1. Create gcloud service account and download credentials file.
 
 1. Install ansible requirements
@@ -42,6 +44,7 @@
     vim ansible/inventory.gce.ini
     ```
 
+## Create environment with app
 1. Create infrastructure
     ```bash
     cd terraform

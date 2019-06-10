@@ -1,5 +1,10 @@
-molecule==2.20.1
 ansible==2.7.11
+
+# dynamic hosts
+apache-libcloud==2.4.0
+pycrypto==2.6.1
+
+# tests
+molecule==2.20.1
 testinfra==1.19.0
 python-vagrant==0.5.15
-apache-libcloud==2.4.0
