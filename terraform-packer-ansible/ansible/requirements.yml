@@ -1,2 +1,5 @@
 - src: jdauphant.nginx
   version: v2.21.1
+
+- src: muryginm.ansible_role_mongodb
+  version: v1.0.1

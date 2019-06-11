@@ -1,6 +1,0 @@
----
-- name: Converge
-  become: True
-  hosts: all
-  roles:
-    - role: mongodb

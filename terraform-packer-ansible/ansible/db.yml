@@ -5,5 +5,5 @@
   gather_facts: False
   roles:
     - rhel-base
-    - mongodb
+    - muryginm.ansible_role_mongodb
 ...
