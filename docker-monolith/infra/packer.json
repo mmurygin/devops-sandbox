@@ -1,0 +1,23 @@
+{
+    "variables": {
+        "gcp_project": ""
+    },
+    "builders": [
+        {
+            "type": "googlecompute",
+            "project_id": "{{ user `gcp_project` }}",
+            "image_name": "docker-vm-{{timestamp}}",
+            "image_family": "docker-vm",
+            "source_image_family": "centos-7",
+            "zone": "europe-west3-c",
+            "machine_type": "f1-micro",
+            "ssh_username": "{{ user `ssh_user` }}"
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "./infra/ansible/docker.yml"
+        }
+    ]
+}
