@@ -37,3 +37,20 @@ deploy_dev_job:
     name: dev
     url: http://dev.35.207.132.140
 
+deploy_stage_job:
+  stage: review
+  when: manual
+  script:
+    - echo 'Deploy'
+  environment:
+    name: stage
+    url: http://stage.35.207.132.140
+
+deploy_prod_job:
+  stage: review
+  when: manual
+  script:
+    - echo 'Deploy'
+  environment:
+    name: prod
+    url: http://prod.35.207.132.140
