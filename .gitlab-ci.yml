@@ -49,6 +49,8 @@ deploy_stage_job:
 deploy_prod_job:
   stage: review
   when: manual
+  only:
+    - /^\d+\.\d+\.\d+/
   script:
     - echo 'Deploy'
   environment:
