@@ -60,6 +60,7 @@ branch review:
   environment:
     name: branch/$CI_COMMIT_REF_NAME
     url: http://$CI_ENVIRONMENT_SLUG.example.com
+    on_stop: stop_review
   only:
     - branches
   except:
