@@ -69,8 +69,8 @@ branch review:
 
 stop_review:
   stage: deploy
-    variables:
-      GIT_STRATEGY: none
+  variables:
+    GIT_STRATEGY: none
   script:
       - echo "Remove review app"
   when: manual
