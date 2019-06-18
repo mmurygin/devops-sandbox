@@ -46,6 +46,16 @@ deploy_stage_job:
     name: stage
     url: http://stage.35.207.132.140
 
+deploy_prod_job:
+  stage: review
+  only:
+    - /^\d+\.\d+\.\d+/
+  script:
+    - echo 'Deploy'
+  environment:
+    name: prod
+    url: http://prod.35.207.132.140
+
 branch review:
   stage: review
   script: echo "Deploy to $CI_ENVIRONMENT_SLUG"
@@ -57,12 +67,13 @@ branch review:
   except:
     - master
 
-deploy_prod_job:
-  stage: review
-  only:
-    - /^\d+\.\d+\.\d+/
+stop_review:
+  stage: deploy
+    variables:
+      GIT_STRATEGY: none
   script:
-    - echo 'Deploy'
+      - echo "Remove review app"
+  when: manual
   environment:
-    name: prod
-    url: http://prod.35.207.132.140
+    name: review/$CI_COMMIT_REF_NAME
+    action: stop
