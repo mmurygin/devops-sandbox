@@ -18,12 +18,22 @@
     eval $(docker-machine env) 
     ```
 
-1. Login to docker hub
-    ```bash
-    docker login
-    ```
-
 1. Build Images
     ```bash
-    ./build.sh your-docker-login
+    ./scripts/build.sh
+    ```
+
+1. Run app
+    ```bash
+    ./scripts/run.sh
+    ```
+
+1. Cleanup
+    ```bash
+    ./scripts/cleanup.sh [-v]
+    ```
+
+1. Remove docker machine
+    ```bash
+    docker-machine rm docker-host
     ```

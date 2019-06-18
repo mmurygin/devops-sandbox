@@ -153,7 +153,7 @@ post '/new/?' do
     end
     redirect '/'
   else
-    flash_danger('Invalid URL')
+    flash_danger('Invalid URLllllllllll')
     log_event('warning', 'post_create', 'Invalid URL', params)
     redirect back
   end
