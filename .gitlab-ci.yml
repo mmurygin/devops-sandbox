@@ -68,7 +68,7 @@ branch review:
     - master
 
 stop_review:
-  stage: deploy
+  stage: review
   variables:
     GIT_STRATEGY: none
   script:
