@@ -2,26 +2,26 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: mongo
+  name: mongodb
   labels:
     app: reddit
-    component: mongo
+    component: mongodb
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: reddit
-      component: mongo
+      component: mongodb
   template:
     metadata:
-      name: mongo
+      name: mongodb
       labels:
         app: reddit
-        component: mongo
+        component: mongodb
     spec:
       containers:
       - image: mongo:3.2
-        name: mongo
+        name: mongodb
         volumeMounts:
         - name: mongo-persistent-storage
           mountPath: /data/db

@@ -11,13 +11,13 @@ spec:
   selector:
     matchLabels:
       app: reddit
-      components: post
+      component: post
   template:
     metadata:
       name: post-pod
       labels:
         app: reddit
-        components: post
+        component: post
     spec:
       containers:
         - image: muryginm/reddit_post:1.0

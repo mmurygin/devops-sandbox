@@ -5,7 +5,7 @@ metadata:
   name: post-db
   labels:
     app: reddit
-    component: mongodb
+    component: mongodb-post
 spec:
   ports:
   - port: 27017
@@ -19,10 +19,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: component-db
+  name: comment-db
   labels:
     app: reddit
-    component: mongodb
+    component: mongodb-comment
 spec:
   ports:
   - port: 27017
