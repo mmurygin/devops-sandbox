@@ -20,5 +20,11 @@ spec:
         component: ui
     spec:
       containers:
-        - image: muryginm/reddit_ui:1.0
-          name: ui
+      - image: muryginm/reddit_ui:1.0
+        name: ui
+        env:
+        - name: ENV
+          valueFrom:
+            fieldFrom:
+              fieldPath: metadata.namespace
+
