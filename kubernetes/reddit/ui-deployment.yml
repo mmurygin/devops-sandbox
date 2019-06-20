@@ -25,6 +25,6 @@ spec:
         env:
         - name: ENV
           valueFrom:
-            fieldFrom:
+            fieldRef:
               fieldPath: metadata.namespace
 
