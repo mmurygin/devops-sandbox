@@ -15,11 +15,15 @@
     gcloud container clusters get-credentials reddit-cluster
     ```
 
-1. Deploy app
+1. Create namespace
     ```bash
     kubectl apply -f namespaces
-    kubectl apply -n dev -f reddit
     ```
+1. Cre
+
+
+1. Deploy app
+	sdfsdf
 
 ## Check the result
 1. Get IP (chose the IP of any node)
