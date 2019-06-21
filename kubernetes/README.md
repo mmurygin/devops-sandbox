@@ -19,11 +19,18 @@
     ```bash
     kubectl apply -f namespaces
     ```
-1. Cre
 
+1. Create ssl key and secret
+    ```
+    ./ssl/generate.sh
+    ./ssl/create-secret.sh
+    ```
+1.
 
 1. Deploy app
-	sdfsdf
+    ```bash
+    kubectl apply -f reddit
+    ```
 
 ## Check the result
 1. Get IP (chose the IP of any node)
