@@ -45,10 +45,3 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     ]
   }
 }
-
-resource "google_compute_disk" "default" {
-  name  = "reddit-mongo-disk"
-  zone  = "${var.zone}"
-  size = 25
-  type  = "pd-standard"
-}

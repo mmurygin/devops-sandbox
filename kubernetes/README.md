@@ -23,7 +23,7 @@
 1. Create ssl key and secret
     ```
     ./ssl/generate.sh
-    ./ssl/create-secret.sh
+    ./ssl/create-secret.sh -n dev
     ```
 1. Enable network isolation
     ```bash
@@ -37,21 +37,19 @@
 
 1. Deploy app
     ```bash
-    kubectl apply -f reddit
+    kubectl apply -f reddit -n dev
     ```
 
 ## Check the result
-1. Get IP (chose the IP of any node)
+1. Get IP
     ```bash
-    kubectl get nodes -o wide
+    kubectl -n dev get ingress ui
     ```
 
-1. Get the port
-    ```bash
-    kubectl describe service ui -n dev | grep NodePort
-    ```
+1. Open browser with **https**
 
 ## Cleanup
     ```bash
+    kubectl delete -f reddit -f namespace -f network/mongodb-network-policy.yml -n dev
     terraform destroy -force
     ```
