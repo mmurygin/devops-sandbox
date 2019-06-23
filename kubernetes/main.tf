@@ -46,14 +46,9 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   }
 }
 
-resource "google_compute_firewall" "default" {
-  name    = "allow-kub-node-ports"
-  network = "default"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["30000-32767"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
+resource "google_compute_disk" "default" {
+  name  = "reddit-mongo-disk"
+  zone  = "${var.zone}"
+  size = 25
+  type  = "pd-standard"
 }
