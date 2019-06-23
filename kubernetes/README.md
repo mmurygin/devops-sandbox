@@ -1,4 +1,4 @@
-# Getting started with terraform
+``# Getting started with terraform
 
 ## Before
 1. `gcloud auth application-default login`
@@ -25,7 +25,15 @@
     ./ssl/generate.sh
     ./ssl/create-secret.sh
     ```
-1.
+1. Enable network isolation
+    ```bash
+    ./network/enable-network-policy.sh
+    ```
+
+1. Setup network isolation
+    ```bash
+    kubectl apply -f network/mongodb-network-policy.yml -n dev
+    ```
 
 1. Deploy app
     ```bash
