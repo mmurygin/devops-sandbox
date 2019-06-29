@@ -12,7 +12,7 @@
 
 1. Authenticate kubectl
     ```bash
-    gcloud container clusters get-credentials reddit-cluster
+    gcloud container clusters get-credentials reddit
     ```
 
 1. Create namespace
@@ -50,6 +50,6 @@
 
 ## Cleanup
     ```bash
-    kubectl delete -f reddit -f namespace -f network/mongodb-network-policy.yml -n dev
+    kubectl delete -f reddit -f namespaces -f network/mongodb-network-policy.yml -n dev
     terraform destroy -force
     ```
