@@ -28,12 +28,23 @@
     ./scripts/run.sh username
     ```
 
-1. Cleanup
+1. Open app port
     ```bash
-    ./scripts/cleanup.sh [-v]
+    gcloud compute firewall-rules create --target-tags docker-machine --allow tcp:9292 allow-reddit
     ```
 
+1. Check the result
+    ```bash
+    curl $(docker-machine ip docker-host):9292
+    ```
+
+## Cleanup
 1. Remove docker machine
     ```bash
     docker-machine rm docker-host
+    ```
+
+1. Remove firewall rule
+    ```bash
+    gcloud compute firewall-rules delete allow-reddit
     ```
