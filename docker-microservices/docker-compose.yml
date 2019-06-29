@@ -1,4 +1,5 @@
 version: '3.3'
+
 services:
   post_db:
     image: mongo:3.2
@@ -8,20 +9,27 @@ services:
       - reddit_backend
   ui:
     build: ./src/ui
-    image: ${DOCKER_USER}/ui:${UI_VERSION}
+    image: ${DOCKER_USER}/reddit_ui:${UI_VERSION}
     ports:
       - ${EXTERNAL_PORT}:9292/tcp
     networks:
       - reddit_frontend
   post:
     build: ./src/post-py
-    image: ${DOCKER_USER}/post:${POST_VERSION}
+    image: ${DOCKER_USER}/reddit_post:${POST_VERSION}
     networks:
       - reddit_frontend
       - reddit_backend
   comment:
     build: ./src/comment
-    image: ${DOCKER_USER}/comment:${COMMENT_VERSION}
+    image: ${DOCKER_USER}/reddit_comment:${COMMENT_VERSION}
+    networks:
+      - reddit_frontend
+      - reddit_backend
+
+  prometheus:
+    build: ./prometheus
+    image: ${DOCKER_USER}/reddit_prometheus:${PROMETHEUS_VERSION}
     networks:
       - reddit_frontend
       - reddit_backend
