@@ -15,17 +15,17 @@
 
 1. Setup docker environment to work with cloud based docker
     ```bash
-    eval $(docker-machine env) 
+    eval $(docker-machine env docker-host)
     ```
 
 1. Build Images
     ```bash
-    ./scripts/build.sh
+    ./scripts/build.sh username
     ```
 
 1. Run app
     ```bash
-    ./scripts/run.sh
+    ./scripts/run.sh username
     ```
 
 1. Cleanup
