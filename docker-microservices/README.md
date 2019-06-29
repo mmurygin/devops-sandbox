@@ -18,24 +18,32 @@
     eval $(docker-machine env docker-host)
     ```
 
-1. Build Images
-    ```bash
-    ./scripts/build.sh username
-    ```
-
-1. Run app
-    ```bash
-    ./scripts/run.sh username
-    ```
-
 1. Open app port
     ```bash
     gcloud compute firewall-rules create --target-tags docker-machine --allow tcp:9292 allow-reddit
     ```
 
-1. Check the result
+## Run with docker-compose
+```bash
+docker-compose up
+```
+
+## Check the result
     ```bash
     curl $(docker-machine ip docker-host):9292
+    ```
+
+
+## [Run with docker and shell scripts]
+
+1. Build Images
+    ```bash
+    ./scripts/build.sh [username]
+    ```
+
+1. Run app
+    ```bash
+    ./scripts/run.sh [username]
     ```
 
 ## Cleanup
