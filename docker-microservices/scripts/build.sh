@@ -1,8 +1,18 @@
 #!/bin/bash
 
-USER=${1:-muryginm}
+set -e
 
-docker pull mongo:latest
-docker build -t "$USER"/reddit_post:1.0 ./src/post-py
-docker build -t "$USER"/reddit_comment:1.0 ./src/comment
-docker build -t "$USER"/reddit_ui:1.0 ./src/ui
+export $(grep -v '^#' .env | xargs)
+
+function build_img() {
+    local service="$1"
+
+    cd src/"$service"
+    ./docker_build.sh
+
+    cd -
+}
+
+build_img post-py
+build_img comment
+build_img ui

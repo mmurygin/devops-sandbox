@@ -10,6 +10,7 @@
         --google-project `gcloud config get-value project` \
         --google-machine-type n1-standard-2 \
         --google-zone `gcloud config get-value compute/zone` \
+        --google-tags "docker-reddit"
         docker-host
     ```
 
@@ -20,30 +21,30 @@
 
 1. Open app port
     ```bash
-    gcloud compute firewall-rules create --target-tags docker-machine --allow tcp:9292 allow-reddit
+    gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:9292 allow-reddit-ui
+    gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:9090 allow-reddit-prometheus
     ```
 
 ## Run with docker-compose
-```bash
-docker-compose up
-```
-
-## Check the result
+1. Build images
     ```bash
-    curl $(docker-machine ip docker-host):9292
-    ```
-
-
-## [Run with docker and shell scripts]
-
-1. Build Images
-    ```bash
-    ./scripts/build.sh [username]
+    ./scripts/build.sh
     ```
 
 1. Run app
     ```bash
-    ./scripts/run.sh [username]
+    docker-compose up
+    ```
+
+## Check the result
+1. View the UI
+    ```bash
+    curl $(docker-machine ip docker-host):9292
+    ```
+
+1. View the monitoring dashboard with Prometheus
+    ```bash
+    curl $(docker-machine ip docker-host):9090
     ```
 
 ## Cleanup

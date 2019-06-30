@@ -1,41 +1,59 @@
 version: '3.3'
 
 services:
-  post_db:
+  reddit_db:
     image: mongo:3.2
     volumes:
-      - post_db:/data/db
+      - reddit_db:/data/db
     networks:
       - reddit_backend
   ui:
-    build: ./src/ui
     image: ${DOCKER_USER}/reddit_ui:${UI_VERSION}
+    environment:
+      POST_SERVICE_HOST: post
+      POST_SERVICE_PORT: 5000
+      COMMENT_SERVICE_HOST: comment
+      COMMENT_SERVICE_PORT: 9292
     ports:
-      - ${EXTERNAL_PORT}:9292/tcp
+      - ${EXTERNAL_PORT}:9292
     networks:
       - reddit_frontend
   post:
-    build: ./src/post-py
     image: ${DOCKER_USER}/reddit_post:${POST_VERSION}
-    networks:
-      - reddit_frontend
-      - reddit_backend
-  comment:
-    build: ./src/comment
-    image: ${DOCKER_USER}/reddit_comment:${COMMENT_VERSION}
+    environment:
+      POST_DATABASE_HOST: reddit_db
+      POST_DATABASE: posts
     networks:
       - reddit_frontend
       - reddit_backend
 
+  comment:
+    image: ${DOCKER_USER}/reddit_comment:${COMMENT_VERSION}
+    environment:
+      COMMENT_DATABASE_HOST: reddit_db
+      COMMENT_DATABASE: comments
+    networks:
+      - reddit_frontend
+      - reddit_backend
+  
   prometheus:
     build: ./prometheus
     image: ${DOCKER_USER}/reddit_prometheus:${PROMETHEUS_VERSION}
+    ports:
+      - '9090:9090'
+    volumes:
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention=1d'
     networks:
       - reddit_frontend
       - reddit_backend
 
 volumes:
-  post_db:
+  reddit_db:
+  prometheus_data:
 
 networks:
   reddit_frontend:
