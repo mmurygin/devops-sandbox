@@ -1,9 +1,10 @@
 include .env
 export
 
-all: prometheus post comment ui
-
 .PHONY: prometheus
+
+build: prometheus post comment ui
+
 prometheus:
 	docker-compose build prometheus
 
@@ -15,3 +16,9 @@ comment:
 
 ui:
 	cd src/ui && ./docker_build.sh
+
+push: build
+	docker push "${DOCKER_USER}"/reddit_comment:"${COMMENT_VERSION}"
+	docker push "${DOCKER_USER}"/reddit_post:"${POST_VERSION}"
+	docker push "${DOCKER_USER}"/reddit_ui:"${UI_VERSION}"
+	docker push "${DOCKER_USER}"/reddit_prometheus:"${PROMETHEUS_VERSION}"
