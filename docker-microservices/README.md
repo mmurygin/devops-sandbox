@@ -10,7 +10,7 @@
         --google-project `gcloud config get-value project` \
         --google-machine-type n1-standard-2 \
         --google-zone `gcloud config get-value compute/zone` \
-        --google-tags "docker-reddit"
+        --google-tags "docker-reddit" \
         docker-host
     ```
 
@@ -28,7 +28,7 @@
 ## Run with docker-compose
 1. Build images
     ```bash
-    ./scripts/build.sh
+    make
     ```
 
 1. Run app
