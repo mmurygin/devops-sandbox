@@ -35,9 +35,9 @@ services:
     networks:
       - reddit_frontend
       - reddit_backend
-  
+
   prometheus:
-    build: ./prometheus
+    build: ./monitoring/prometheus
     image: ${DOCKER_USER}/reddit_prometheus:${PROMETHEUS_VERSION}
     ports:
       - '9090:9090'
@@ -64,6 +64,13 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
     networks:
+      - prometheus
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.14.0
+    networks:
+      - reddit_frontend
+      - reddit_backend
       - prometheus
 
 volumes:

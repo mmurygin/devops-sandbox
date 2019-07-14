@@ -1,8 +1,6 @@
 include .env
 export
 
-.PHONY: prometheus
-
 build: prometheus post comment ui
 
 prometheus:
