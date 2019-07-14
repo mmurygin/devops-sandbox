@@ -37,7 +37,7 @@ services:
       - reddit_backend
 
   prometheus:
-    build: ./monitoring/prometheus
+    build: ./prometheus
     image: ${DOCKER_USER}/reddit_prometheus:${PROMETHEUS_VERSION}
     ports:
       - '9090:9090'
@@ -70,6 +70,14 @@ services:
     image: prom/blackbox-exporter:v0.14.0
     networks:
       - reddit_frontend
+      - reddit_backend
+      - prometheus
+
+  mongo-exporter:
+    image: muryginm/mongodb-exporter:0.8.0
+    command:
+      - '--mongodb.uri=mongodb://reddit_db:27017'
+    networks:
       - reddit_backend
       - prometheus
 
