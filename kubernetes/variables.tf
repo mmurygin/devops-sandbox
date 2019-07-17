@@ -11,3 +11,7 @@ variable zone {
   description = "Zone"
   default     = "europe-west3-c"
 }
+
+variable cluster {
+  description = "cluster name"
+}

@@ -5,7 +5,7 @@ provider "google" {
 }
 
 resource "google_container_cluster" "primary" {
-  name     = "reddit"
+  name     = "${var.cluster}"
   location = "${var.zone}"
 
   # We can't create a cluster with no node pool defined, but we want to only use
