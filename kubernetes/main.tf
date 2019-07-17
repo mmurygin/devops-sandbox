@@ -23,6 +23,11 @@ resource "google_container_cluster" "primary" {
       issue_client_certificate = false
     }
   }
+
+  network_policy {
+    provider = "CALICO"
+    enabled  = true
+  }
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {

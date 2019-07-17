@@ -1,12 +1,12 @@
 project = $(shell gcloud config get-value project)
 cluster = reddit
 
-all: create-or-update-infra auth app
+all: infra auth app
 
-create-or-update-infra:
+infra:
 	terraform apply -var project=$(project) -var cluster=$(cluster)
 
-app: namespace certs network-policy deploy
+app: namespace certs deploy
 
 deploy:
 	kubectl apply -f reddit -n dev
@@ -23,9 +23,6 @@ ssl/tls.key ssl/tls.crt:
 certs: namespace ssl/tls.key ssl/tls.crt
 	./ssl/create-secret.sh dev
 
-network-policy:
-	./network/enable-network-policy.sh $(cluster)
-
 get-ip:
 	kubectl -n dev get ingress ui
 
@@ -33,7 +30,11 @@ init:
 	gcloud auth application-default login
 	terraform init
 
-cleanup:
-	kubectl delete -f reddit -n dev
-	kubectl delete -f namespaces
-	terraform destroy -force
+cleanup-cluster:
+	kubectl delete -f reddit -n dev --ignore-not-found
+	kubectl delete -f namespaces --ignore-not-found
+
+cleanup-infra:
+	terraform destroy -force -var project=$(project) -var cluster=$(cluster)
+
+cleanup: cleanup-cluster cleanup-infra
