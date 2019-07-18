@@ -1,6 +1,6 @@
 service:
-  externalPort: 5000
   internalPort: 5000
+  externalPort: 5000
 
 image:
   name: muryginm/reddit_post
