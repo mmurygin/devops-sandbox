@@ -11,7 +11,6 @@
     make init
     ```
 
-
 ## Deploy app
 1. Deploy app
     ```bash

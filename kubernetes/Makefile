@@ -6,7 +6,7 @@ all: infra auth app
 infra:
 	terraform apply -var project=$(project) -var cluster=$(cluster)
 
-app: namespace certs deploy
+app: global certs deploy
 
 deploy:
 	kubectl apply -f reddit -n dev
@@ -14,8 +14,8 @@ deploy:
 auth:
 	gcloud container clusters get-credentials $(cluster)
 
-namespace:
-	kubectl apply -f namespaces
+global:
+	kubectl apply -f global
 
 ssl/tls.key ssl/tls.crt:
 	./ssl/generate.sh
@@ -25,6 +25,11 @@ certs: namespace ssl/tls.key ssl/tls.crt
 
 get-ip:
 	kubectl -n dev get ingress ui
+
+helm: helm-init
+
+helm-init:
+	helm init --service-account tiller
 
 init:
 	gcloud auth application-default login
