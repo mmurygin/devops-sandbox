@@ -6,7 +6,7 @@ all: infra auth app
 infra:
 	terraform apply -var project=$(project) -var cluster=$(cluster)
 
-app: global certs deploy
+app: global-resources certs deploy
 
 deploy:
 	kubectl apply -f reddit -n dev
@@ -14,19 +14,19 @@ deploy:
 auth:
 	gcloud container clusters get-credentials $(cluster)
 
-global:
+global-resources:
 	kubectl apply -f global
 
 ssl/tls.key ssl/tls.crt:
 	./ssl/generate.sh
 
-certs: namespace ssl/tls.key ssl/tls.crt
+certs: global-resources ssl/tls.key ssl/tls.crt
 	./ssl/create-secret.sh dev
 
 get-ip:
 	kubectl -n dev get ingress ui
 
-helm: helm-init
+helm: global-resources helm-init
 
 helm-init:
 	helm init --service-account tiller
@@ -37,7 +37,7 @@ init:
 
 cleanup-cluster:
 	kubectl delete -f reddit -n dev --ignore-not-found
-	kubectl delete -f namespaces --ignore-not-found
+	kubectl delete -f global --ignore-not-found
 
 cleanup-infra:
 	terraform destroy -force -var project=$(project) -var cluster=$(cluster)
