@@ -1,0 +1,8 @@
+---
+name: post
+version: 1.0.0
+description: post UI
+maintainers:
+  - name: Maxim Murygin
+    email: muriginm@gmail.com
+appVersion: 1.0

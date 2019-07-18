@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
+  labels:
+    app: reddit
+    component: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: reddit
+      component: {{ .Chart.Name }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      name: {{ .Chart.Name }}-pod
+      labels:
+        app: reddit
+        component: {{ .Chart.Name }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          name: {{ .Chart.Name }}-cont
+          env:
+            - name: COMMENT_DATABASE_HOST
+              value: {{ .Values.databaseHost | default (printf "%s-mongodb" .Release.Name) }}
+
