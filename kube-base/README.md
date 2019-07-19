@@ -24,7 +24,7 @@
     ```
 
 1. Open browser with **https**
-    * **it takes time to spin up load balancer and ingress controller, so wait for about 5 min before trying"
+    * **it takes time to spin up load balancer and ingress controller, so wait for about 10 min before trying"
 
 ## Cleanup
     ```bash
