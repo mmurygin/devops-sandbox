@@ -1,12 +1,14 @@
 project = $(shell gcloud config get-value project)
 cluster = reddit
 
+.PHONY: global-res
+
 all: infra auth app
 
 infra:
-	terraform apply -var project=$(project) -var cluster=$(cluster)
+	terraform apply -var project=$(project) -var cluster=$(cluster) -auto-approve
 
-app: namespace certs deploy
+app: global-res certs deploy
 
 deploy:
 	kubectl apply -f reddit -n dev
@@ -14,13 +16,13 @@ deploy:
 auth:
 	gcloud container clusters get-credentials $(cluster)
 
-namespace:
-	kubectl apply -f namespaces
+global-res:
+	kubectl apply -f global-res
 
 ssl/tls.key ssl/tls.crt:
 	./ssl/generate.sh
 
-certs: namespace ssl/tls.key ssl/tls.crt
+certs: global-res ssl/tls.key ssl/tls.crt
 	./ssl/create-secret.sh dev
 
 get-ip:
@@ -32,7 +34,7 @@ init:
 
 cleanup-cluster:
 	kubectl delete -f reddit -n dev --ignore-not-found
-	kubectl delete -f namespaces --ignore-not-found
+	kubectl delete -f global-res --ignore-not-found
 
 cleanup-infra:
 	terraform destroy -force -var project=$(project) -var cluster=$(cluster)
