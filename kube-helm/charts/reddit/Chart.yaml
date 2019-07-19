@@ -1,0 +1,8 @@
+---
+name: reddit app
+version: 1.0.0
+description: reddit app
+maintainers:
+  - name: Maxim Murygin
+    email: muriginm@gmail.com
+appVersion: 1.0

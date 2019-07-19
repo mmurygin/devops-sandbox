@@ -1,0 +1,12 @@
+service:
+  externalPort: 80
+  internalPort: 9292
+
+image:
+  name: muryginm/reddit_ui
+  tag: "1.0"
+
+postHost:
+postPort:
+commentHost:
+commentPort:

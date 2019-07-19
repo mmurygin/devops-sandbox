@@ -1,0 +1,8 @@
+---
+name: ui
+version: 1.0.1
+description: reddit UI
+maintainers:
+  - name: Maxim Murygin
+    email: muriginm@gmail.com
+appVersion: 1.0
