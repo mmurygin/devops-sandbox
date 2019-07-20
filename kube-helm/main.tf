@@ -28,6 +28,8 @@ resource "google_container_cluster" "primary" {
     provider = "CALICO"
     enabled  = true
   }
+
+  enable_legacy_abac = true
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
@@ -39,6 +41,8 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   node_config {
     preemptible  = true
     machine_type = "n1-standard-2"
+    disk_size_gb = 40
+    disk_type = "pd-standard"
 
     metadata = {
       disable-legacy-endpoints = "true"

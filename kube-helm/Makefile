@@ -11,12 +11,16 @@ init:
 	terraform init
 
 infra:
-	terraform apply -var project=$(project) -var cluster=$(cluster) -auto-approve
+	terraform apply -var project=$(project) -var cluster=$(cluster)
 
 auth:
 	gcloud container clusters get-credentials $(cluster)
 
 app: global-res certs helm
+	helm install -n reddit charts/reddit
+
+gitlab: global-res helm
+	helm install -n gitlab charts/gitlab-omnibus
 
 global-res:
 	kubectl apply -f global-res
@@ -31,9 +35,8 @@ get-ip:
 	kubectl get ingress reddit-ui
 
 helm: global-res helm-init helm-wait helm-dep
-	helm install -n reddit charts/reddit
 
-helm-init:
+helm-init: global-res
 	helm init --service-account tiller
 
 helm-wait:
@@ -44,7 +47,8 @@ helm-dep:
 	cd charts/reddit && helm dependency update
 
 cleanup-cluster:
-	helm delete --purge reddit
+	helm delete --purge reddit || exit 0
+	helm delete --purge gitlab || exit 0
 	kubectl delete deployment tiller-deploy --namespace kube-system
 	kubectl delete -f global-res --ignore-not-found
 
