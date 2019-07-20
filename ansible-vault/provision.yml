@@ -1,9 +1,0 @@
----
-- name: Create user with credentials
-  hosts: all
-  become: True
-  vars_files:
-    - credentials.yml
-  roles:
-    - useradd
-...

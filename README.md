@@ -63,17 +63,15 @@
             * firewalld
             * nginx
             * reddit
-- [Ansible Vault Demo](ansible-vault)
-    * Demo role to play with `ansible-vault`
 - [Docker monolith](docker-monolith)
     * Run web app inside docker container
     * Technologies:
         * terraform for creating vm
         * ansible for setting up docker
-        * packer for building vm with pre-installed docker 
+        * packer for building vm with pre-installed docker
         * docker to run containers
     * Inside vm:
         * Docker
     * Inside docker container:
         * web app
-        * mongodb 
+        * mongodb
