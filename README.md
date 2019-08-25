@@ -75,3 +75,21 @@
     * Inside docker container:
         * web app
         * mongodb
+- [Docker Microservices](docker-microservices)
+    * Web app which consists of multiple docker containers
+    * Technologies:
+        * docker-machine for creating vm
+        * docker-compose for running multiple microservices
+        * prometheus for monitoring
+        * Google Cloud Platform
+- [Kubernetes Base](kube-base)
+    * Base example of deploying app into kubernetes cluster
+    * Technologies:
+        * terraform for creating cloud resources
+        * kubectl for deploying app
+- [Kubernetes Helm](kube-helm)
+    * The example of how to run app with helm
+    * Technologies:
+        * terraform for creating cloud resources
+        * helm for deploying app
+
