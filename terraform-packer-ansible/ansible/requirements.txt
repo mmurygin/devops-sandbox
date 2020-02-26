@@ -1,4 +1,4 @@
-ansible==2.7.11
+ansible==2.7.16
 
 # dynamic hosts
 apache-libcloud==2.4.0
