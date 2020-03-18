@@ -1,6 +1,8 @@
 include .env
 export
 
+all: build push
+
 build: prometheus post comment ui
 
 prometheus:

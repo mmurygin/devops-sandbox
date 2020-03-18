@@ -26,6 +26,13 @@
     ```
 
 ## Run with docker-compose
+1. Login to docker hub
+    ```bash
+    docker login
+    ```
+
+1. Change `.env`
+
 1. Build images
     ```bash
     make
