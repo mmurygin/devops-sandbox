@@ -34,6 +34,8 @@
 
 1. Change `.env`
 
+1. If you want to use alert manager then create slack channel and web hoop integration. Set your params in `alertmanager/config.yml`
+
 1. Build images
     ```bash
     make

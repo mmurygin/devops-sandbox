@@ -109,6 +109,18 @@ services:
     networks:
       - monitoring
 
+  alertmanager:
+    image: ${DOCKER_USER}/reddit_alertmanager:${REDDIT_ALERTMANAGER_VERSION}
+    build: ./alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+    depends_on:
+      - prometheus
+    ports:
+      - 9093:9093
+    networks:
+      - monitoring
+
 volumes:
   reddit_db:
   prometheus_data:

@@ -13,6 +13,11 @@ grafana:
 	docker-compose build grafana
 	docker push "${DOCKER_USER}"/reddit_grafana:"${REDDIT_GRAFANA_VERSION}"
 
+.PHONY: alertmanager
+alertmanager:
+	docker-compose build alertmanager
+	docker push "${DOCKER_USER}"/reddit_alertmanager:"${REDDIT_ALERTMANAGER_VERSION}"
+
 .PHONY: post
 post:
 	cd src/post-py && ./docker_build.sh
