@@ -39,7 +39,7 @@ services:
 
   prometheus:
     build: ./prometheus
-    image: ${DOCKER_USER}/reddit_prometheus:${PROMETHEUS_VERSION}
+    image: ${DOCKER_USER}/reddit_prometheus:${REDDIT_PROMETHEUS_VERSION}
     ports:
       - '9090:9090'
     volumes:
@@ -95,7 +95,8 @@ services:
       - monitoring
 
   grafana:
-    image: grafana/grafana:5.0.0
+    image: ${DOCKER_USER}/reddit_grafana:${REDDIT_GRAFANA_VERSION}
+    build: ./grafana
     volumes:
       - grafana_data:/var/lib/grafana
     environment:

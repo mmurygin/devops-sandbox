@@ -1,12 +1,17 @@
 include .env
 export
 
-all: prometheus post comment ui
+all: prometheus grafana post comment ui
 
 .PHONY: prometheus
 prometheus:
 	docker-compose build prometheus
-	docker push "${DOCKER_USER}"/reddit_prometheus:"${PROMETHEUS_VERSION}"
+	docker push "${DOCKER_USER}"/reddit_prometheus:"${REDDIT_PROMETHEUS_VERSION}"
+
+.PHONY: grafana
+grafana:
+	docker-compose build grafana
+	docker push "${DOCKER_USER}"/reddit_grafana:"${REDDIT_GRAFANA_VERSION}"
 
 .PHONY: post
 post:
