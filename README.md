@@ -92,6 +92,9 @@
     * Technologies:
         * terraform for creating cloud resources
         * kubectl for deploying app
+            * gke ingress for routing external traffic
+            * network isolation with Calico
+            * persistent volume claim and dynamic persistent volume claim
 - [Kubernetes Helm](kube-helm)
     * The example of how to run app with helm
     * Technologies:
