@@ -1,12 +1,6 @@
 version: '3.3'
 
 services:
-  reddit_db:
-    image: mongo:3.2
-    volumes:
-      - reddit_db:/data/db
-    networks:
-      - reddit_backend
   ui:
     image: ${DOCKER_USER}/reddit_ui:${UI_VERSION}
     environment:
@@ -36,6 +30,13 @@ services:
       - reddit_frontend
       - reddit_backend
 
+  reddit_db:
+    image: mongo:3.2
+    volumes:
+      - reddit_db:/data/db
+    networks:
+      - reddit_backend
+
   prometheus:
     build: ./prometheus
     image: ${DOCKER_USER}/reddit_prometheus:${PROMETHEUS_VERSION}
@@ -50,7 +51,7 @@ services:
     networks:
       - reddit_frontend
       - reddit_backend
-      - prometheus
+      - monitoring
 
   node-exporter:
     image: prom/node-exporter:v0.15.2
@@ -64,14 +65,14 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
     networks:
-      - prometheus
+      - monitoring
 
   blackbox-exporter:
     image: prom/blackbox-exporter:v0.14.0
     networks:
       - reddit_frontend
       - reddit_backend
-      - prometheus
+      - monitoring
 
   mongo-exporter:
     image: muryginm/mongodb-exporter:0.8.0
@@ -79,13 +80,40 @@ services:
       - '--mongodb.uri=mongodb://reddit_db:27017'
     networks:
       - reddit_backend
+      - monitoring
+
+  cadvisor:
+    image: google/cadvisor:v0.29.0
+    volumes:
+      - '/:/rootfs:ro'
+      - '/var/run:/var/run:rw'
+      - '/sys:/sys:ro'
+      - '/var/lib/docker/:/var/lib/docker:ro'
+    ports:
+      - '8080:8080'
+    networks:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:5.0.0
+    volumes:
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    depends_on:
       - prometheus
+    ports:
+      - 3000:3000
+    networks:
+      - monitoring
 
 volumes:
   reddit_db:
   prometheus_data:
+  grafana_data:
 
 networks:
   reddit_frontend:
   reddit_backend:
-  prometheus:
+  monitoring:

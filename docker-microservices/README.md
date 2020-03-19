@@ -23,6 +23,7 @@
     ```bash
     gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:9292 allow-reddit-ui
     gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:9090 allow-reddit-prometheus
+    gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:3000 allow-reddit-grafana
     ```
 
 ## Run with docker-compose
@@ -62,5 +63,7 @@
 
 1. Remove firewall rule
     ```bash
-    gcloud compute firewall-rules delete allow-reddit
+    gcloud compute firewall-rules delete allow-reddit-ui
+    gcloud compute firewall-rules delete allow-reddit-prometheus
+    gcloud compute firewall-rules delete allow-reddit-grafana
     ```

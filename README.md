@@ -78,10 +78,15 @@
 - [Docker Microservices](docker-microservices)
     * Web app which consists of multiple docker containers
     * Technologies:
+        * Google Cloud Platform
         * docker-machine for creating vm
         * docker-compose for running multiple microservices
-        * prometheus for monitoring
-        * Google Cloud Platform
+        * monitoring
+            * prometheus
+            * node_exporter
+            * cAdvisor
+            * blackbox_exporter
+            * mongo_exporter
 - [Kubernetes Base](kube-base)
     * Base example of deploying app into kubernetes cluster
     * Technologies:
