@@ -14,6 +14,11 @@
         docker-host
     ```
 
+1. Setup system configs
+    ```bash
+    ./setup-system-configs.sh
+    ```
+
 1. Setup docker environment to work with cloud based docker
     ```bash
     eval $(docker-machine env docker-host)
@@ -24,6 +29,8 @@
     gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:9292 allow-reddit-ui
     gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:9090 allow-reddit-prometheus
     gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:3000 allow-reddit-grafana
+    gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:5601 allow-reddit-kibana
+    gcloud compute firewall-rules create --target-tags docker-reddit --allow tcp:9411 allow-reddit-zipkin
     ```
 
 ## Run with docker-compose

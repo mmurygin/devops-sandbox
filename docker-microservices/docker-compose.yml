@@ -11,15 +11,15 @@ services:
     ports:
       - ${EXTERNAL_PORT}:9292
     networks:
-      - reddit_frontend
+      - frontend
   post:
     image: ${DOCKER_USER}/reddit_post:${POST_VERSION}
     environment:
       POST_DATABASE_HOST: reddit_db
       POST_DATABASE: posts
     networks:
-      - reddit_frontend
-      - reddit_backend
+      - frontend
+      - backend
 
   comment:
     image: ${DOCKER_USER}/reddit_comment:${COMMENT_VERSION}
@@ -27,15 +27,15 @@ services:
       COMMENT_DATABASE_HOST: reddit_db
       COMMENT_DATABASE: comments
     networks:
-      - reddit_frontend
-      - reddit_backend
+      - frontend
+      - backend
 
   reddit_db:
     image: mongo:3.2
     volumes:
       - reddit_db:/data/db
     networks:
-      - reddit_backend
+      - backend
 
   prometheus:
     build: ./prometheus
@@ -49,9 +49,9 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention=1d'
     networks:
-      - reddit_frontend
-      - reddit_backend
-      - monitoring
+      - frontend
+      - backend
+      - observability
 
   node-exporter:
     image: prom/node-exporter:v0.15.2
@@ -65,22 +65,22 @@ services:
       - '--path.sysfs=/host/sys'
       - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
     networks:
-      - monitoring
+      - observability
 
   blackbox-exporter:
     image: prom/blackbox-exporter:v0.14.0
     networks:
-      - reddit_frontend
-      - reddit_backend
-      - monitoring
+      - frontend
+      - backend
+      - observability
 
   mongo-exporter:
     image: muryginm/mongodb-exporter:0.8.0
     command:
       - '--mongodb.uri=mongodb://reddit_db:27017'
     networks:
-      - reddit_backend
-      - monitoring
+      - backend
+      - observability
 
   cadvisor:
     image: google/cadvisor:v0.29.0
@@ -92,7 +92,7 @@ services:
     ports:
       - '8080:8080'
     networks:
-      - monitoring
+      - observability
 
   grafana:
     image: ${DOCKER_USER}/reddit_grafana:${REDDIT_GRAFANA_VERSION}
@@ -107,7 +107,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - monitoring
+      - observability
 
   alertmanager:
     image: ${DOCKER_USER}/reddit_alertmanager:${REDDIT_ALERTMANAGER_VERSION}
@@ -119,7 +119,36 @@ services:
     ports:
       - 9093:9093
     networks:
-      - monitoring
+      - observability
+
+  fluentd:
+    image: ${DOCKER_USER}/reddit_fluentd:${REDDIT_FLUENTD_VERSION}
+    build: ./fluentd
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+    networks:
+      - frontend
+      - backend
+      - observability
+
+  elasticsearch:
+    image: elasticsearch:7.4.0
+    environment:
+      discovery.type: single-node
+    expose:
+      - 9200
+    ports:
+      - "9200:9200"
+    networks:
+      - observability
+
+  kibana:
+    image: kibana:7.4.0
+    ports:
+      - "5601:5601"
+    networks:
+      - observability
 
 volumes:
   reddit_db:
@@ -127,6 +156,6 @@ volumes:
   grafana_data:
 
 networks:
-  reddit_frontend:
-  reddit_backend:
-  monitoring:
+  frontend:
+  backend:
+  observability:

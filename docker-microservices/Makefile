@@ -13,6 +13,11 @@ grafana:
 	docker-compose build grafana
 	docker push "${DOCKER_USER}"/reddit_grafana:"${REDDIT_GRAFANA_VERSION}"
 
+.PHONY: fluentd
+fluentd:
+	docker-compose build fluentd
+	docker push "${DOCKER_USER}"/reddit_fluentd:"${REDDIT_FLUENTD_VERSION}"
+
 .PHONY: alertmanager
 alertmanager:
 	docker-compose build alertmanager
