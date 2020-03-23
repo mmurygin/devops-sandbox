@@ -8,15 +8,28 @@ services:
       POST_SERVICE_PORT: 5000
       COMMENT_SERVICE_HOST: comment
       COMMENT_SERVICE_PORT: 9292
+      ZIPKIN_ENABLED: ${ZIPKIN_ENABLED}
     ports:
       - ${EXTERNAL_PORT}:9292
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
     networks:
       - frontend
+
   post:
     image: ${DOCKER_USER}/reddit_post:${POST_VERSION}
     environment:
       POST_DATABASE_HOST: reddit_db
       POST_DATABASE: posts
+      ZIPKIN_ENABLED: ${ZIPKIN_ENABLED}
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
     networks:
       - frontend
       - backend
@@ -26,6 +39,7 @@ services:
     environment:
       COMMENT_DATABASE_HOST: reddit_db
       COMMENT_DATABASE: comments
+      ZIPKIN_ENABLED: ${ZIPKIN_ENABLED}
     networks:
       - frontend
       - backend
@@ -149,6 +163,14 @@ services:
       - "5601:5601"
     networks:
       - observability
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - frontend
+      - backend
 
 volumes:
   reddit_db:

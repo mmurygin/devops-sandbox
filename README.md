@@ -76,7 +76,7 @@
         * web app
         * mongodb
 - [Docker Microservices](docker-microservices)
-    * Web app which consists of multiple docker containers
+    * Example of microservices application with monitoring, logging and tracing
     * Technologies:
         * Google Cloud Platform
         * docker-machine for creating vm
@@ -87,6 +87,10 @@
             * cAdvisor
             * blackbox_exporter
             * mongo_exporter
+        * logging
+            * fluentd for collection containers logs
+            * elastic search for storing and querying logs
+            * kibana for logs visualization
 - [Kubernetes Base](kube-base)
     * Base example of deploying app into kubernetes cluster
     * Technologies:
