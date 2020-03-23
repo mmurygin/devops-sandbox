@@ -91,6 +91,8 @@
             * fluentd for collection containers logs
             * elastic search for storing and querying logs
             * kibana for logs visualization
+        * tracing
+            * zipkin
 - [Kubernetes Base](kube-base)
     * Base example of deploying app into kubernetes cluster
     * Technologies:
