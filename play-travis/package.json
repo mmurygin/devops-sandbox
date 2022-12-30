@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/muryginm/otus-devops#readme",
   "devDependencies": {
-    "mocha": "^6.1.1"
+    "mocha": "^10.2.0"
   }
 }
